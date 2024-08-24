@@ -1,0 +1,1 @@
+This is a file to test resolving conflicts in git.
