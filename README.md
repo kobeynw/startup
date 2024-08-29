@@ -1,7 +1,7 @@
 # startup "Cine-Match"
 A movie night movie selector app made with *HTML*, *CSS*, and *JS*, hosted through *AWS*.
 
-## Specifications
+> ## Specifications
 
 ### Pitch
 Have you ever had a movie night where nobody could decide on a movie to watch? Do you wish it were easier to choose from so many movie options while making sure everyone gets a say? **Cine-Match** helps those looking to throw massive movie night extravaganzas, as well as the casual movie-watchers. Add movies to your personalized collection, then filter them by genre, director, release year, etc. Or host a room where other users can vote on their favorite movies to make the decision-making process a breeze.
@@ -58,3 +58,22 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 
 *Websocket*
 - Movie votes are updated in real time across devices
+
+> ## Amazon Web Services - EC2
+
+### Security Groups
+Security Groups house the rules for the server. Security group rules specify both the port that is accessible on your server, and the source IP address that requests are allowed from. By allowing HTTP, HTTPS, and SSH, access is granted to most devices to access the address.
+
+### SSH Into the Server
+To remote shell into the server via the terminal, use the key pair file (saved as a .pem file securely), and the ip address.
+```console
+ssh -i [key pair file] ubuntu@[ip address]
+```
+To ensure permissions are not accessible to anyone, run the following command.
+```console
+chmod  600 [key pair file]
+```
+Once connected, you will be in the ubuntu user's home directory, which can be navigated (Use ls -l to view files). Use the exit command to close the remote shell.
+
+### Keep the Same Public IP Address
+Assign an Elastic IP Address by allocating and then associating one via the Network and Security tab on the left menu of the EC2 Service. **IMPORTANT NOTE**: the elastic IP address is allocated until you release it, not until you terminate your instance, so make sure to release it when it is not needed anymore.
