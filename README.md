@@ -1,10 +1,10 @@
-# startup "Cine-Match"
+# startup "Movie Knight"
 A movie night movie selector app made with *HTML*, *CSS*, and *JS*, hosted through *AWS*.
 
 > ## Specifications
 
 ### Pitch
-Have you ever had a movie night where nobody could decide on a movie to watch? Do you wish it were easier to choose from so many movie options while making sure everyone gets a say? **Cine-Match** helps those looking to throw massive movie night extravaganzas, as well as the casual movie-watchers. Add movies to your personalized collection, then filter them by genre, director, release year, etc. Or host a room where other users can vote on their favorite movies to make the decision-making process a breeze.
+Have you ever had a movie night where nobody could decide on a movie to watch? Do you wish it were easier to choose from so many movie options while making sure everyone gets a say? **Movie Knight** helps those looking to throw massive movie night extravaganzas, as well as the casual movie-watchers. Add movies to your personalized collection, then filter them by genre, director, release year, etc. Or host a room where other users can vote on their favorite movies to make the decision-making process a breeze.
 
 ### Key Features
 
@@ -31,7 +31,7 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 - Page 4: hosting or joining a room where users can vote on a movie to watch
 
 *CSS*
-- Cinema themed colors/styles
+- Medieval themed colors/styles
 - Adaptive layout based on screen size and/or device setup
 
 *JavaScript*
