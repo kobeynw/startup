@@ -68,3 +68,55 @@ Web Certificates
 - thanks to Let's Encrypt, anyone can generate a Web Certificate for free
 - Caddy generates web certificates through Let's Encrypt for unidentified domain name requests
 - For applications without Caddy, a web certificate can be generated automatically by enabling the ACME protocol for your web server and utilizing Let's Encrypt
+
+> ## The Console (Terminal)
+
+### Basic Commands
+
+**echo** - Output the parameters of the command  
+**cd** - Change directory  
+**mkdir** - Make directory  
+**rmdir** - Remove directory  
+**rm** - Remove file(s)  
+**mv** - Move file(s)  
+**cp** - Copy files  
+**ls** - List files  
+**curl** - Command line client URL browser  
+**grep** - Regular expression search  
+**find** - Find files  
+**top** - View running processes with CPU and memory usage  
+**df** - View disk statistics  
+**cat** - Output the contents of a file  
+**less** - Interactively output the contents of a file  
+**wc** - Count the words in a file  
+**ps** - View the currently running processes  
+**kill** - Kill a currently running process  
+**sudo** - Execute a command as a super user (admin)  
+**ssh** - Create a secure shell on a remote computer  
+**scp** - Securely copy files to a remote computer  
+**history** - Show the history of commands  
+**ping** - Check if a website is up  
+**tracert** - Trace the connections to a website  
+**dig** - Show the DNS information for a domain  
+**man** - Look up a command in the manual  
+
+### Special Characters
+
+**|** - Pipe the output from the left to the input on the right  
+**>** - Redirect the output from the left to a new file on the right  
+**>>** - Redirect the output from the left to append to an existing file on the right
+
+### Examples
+
+1. Copy the file 'words.txt' into the subdirectory 'library' to a new file named 'words2.txt'
+    ```console
+    cp words.txt ./library/words2.txt
+    ```
+2. List the files in the current directory in long format (shows the dates created, etc.); pipe that into the grep command to check which files (lines) have ' Nov ' in the creation date; pipe that into the wc -l command, which counts the number of lines in the input
+    ```console
+    ls -l | grep ' Nov ' | wc -l
+    ```
+3. Redirect the printed character 'x' into a new file called 'words.txt', which will be created in the current directory
+    ```console
+    printf "x" > words.txt
+    ```
