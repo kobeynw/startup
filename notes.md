@@ -120,3 +120,21 @@ Web Certificates
     ```console
     printf "x" > words.txt
     ```
+
+> ## HTML (Hypertext Markup Language)
+
+- HTML elements are represented using any of the various different tags (e.g. body tag)
+- Elements can have attributes assigned to them (e.g. id="main-body", href="https://byu.edu")
+- Special Characters:  
+
+    | Character   | Entity   |
+    |------------|------------|
+    | &| \&amp;|
+    | <| \&lt;|
+    | >| \&gt;|
+    | "| \&quot;|
+    | '| \&apos;|
+    | 😀| \&#128512;|
+
+- Web servers will look for a file named "index.html" by default
+- Some elements are block format, while others are inline format (e.g. div is block and span in inline)
