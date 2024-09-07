@@ -4,10 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Movie Knight</title>
+        <link rel="icon" href="movieKnightLogo.ico">
     </head>
     <body>
         <header>
             <h1><a href="./index.html">Movie Knight</a></h1>
+            <img src="movieKnightLogo.PNG" width="150px">
             <nav>
                 <ul>
                     <li>My Collection</li>
@@ -17,6 +19,53 @@
             </nav>
         </header>
         <main>
+            <div id="collection">
+                <h2>My Collection</h2>
+                <table id="collectionList">
+                    <tr>
+                        <th>Title</th>
+                        <th>Director</th>
+                        <th>Year</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Title 1</td>
+                        <td>Director 1</td>
+                        <td>Year 1</td>
+                        <td><button>Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Title 2</td>
+                        <td>Director 2</td>
+                        <td>Year 2</td>
+                        <td><button>Delete</button></td>
+                    </tr>
+                </table>
+                <button>Add Custom Movie</button>
+            </div>
+            <div id="database">
+                <h2>Movie Database</h2>
+                <input id="titleInput" placeholder="Search for a movie...">
+                <button id="titleSubmit" type="submit">Search</button>
+                <table id="searchList">
+                    <tr>
+                        <th>Title</th>
+                        <th>Director</th>
+                        <th>Year</th>
+                    </tr>
+                    <tr>
+                        <td>Title 1</td>
+                        <td>Director 1</td>
+                        <td>Year 1</td>
+                    </tr>
+                    <tr>
+                        <td>Title 2</td>
+                        <td>Director 2</td>
+                        <td>Year 2</td>
+                    </tr>
+                </table>
+                <button>Add to Collection</button>
+            </div>
         </main>
         <footer>
             <ul>
