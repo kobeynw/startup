@@ -58,3 +58,40 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 
 *Websocket*
 - Movie votes are updated in real time across devices
+
+> ## HTML Content
+
+### HTML Pages
+- Page 1: user login and authentication page
+- Page 2: creating a personal movie collection from a search or by custom input
+- Page 3: filtering movies based on criteria or by random selection
+- Page 4: hosting or joining a room where users can vote on a movie to watch
+
+### Tags
+- Uses several different tags, including BODY, NAV, MAIN, HEADER, FOOTER
+
+### Links
+- Main page currently has the same navbar setup as the other pages, which contain links to the other pages in the site
+- The main page navbar will eventually be replaced by functionality that will redirect the user to the collection page once they submit login credentials
+
+### Textual Content
+- Movie information is displayed in a table format, with filler information temporarily
+- Button labels, table information, header and footer content, party information (also temporary) are all present
+
+### Third Party Service Placeholders
+- The Collection page will eventually have a search functionality that makes API calls to fetch movie information such as title, director, release year, etc.
+- Currently there is a placeholder table with random movie information
+
+### Images
+- Knight helmet favicon icon
+- Knight helmet logo for the top next to the navbar
+
+### Login
+- Email and password login and authentication on main page
+
+### Database
+- The Collection page will eventually display the movies and information that the user has stored
+- The collection table currently displays random placeholder movie info
+
+### Websocket
+- The Voting page will eventually display real-time movie votes from various users
