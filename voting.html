@@ -4,11 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Movie Knight</title>
+        <link rel="icon" href="./pictures/movieKnightLogo.ico">
     </head>
     <body>
         <header>
             <h1><a href="./index.html">Movie Knight</a></h1>
-            <img src="movieKnightLogo.PNG" width="150px">
+            <img src="./pictures/movieKnightLogo.PNG" width="150px">
             <nav>
                 <ul>
                     <li><a href="./collection.html">My Collection</a></li>
@@ -18,6 +19,46 @@
             </nav>
         </header>
         <main>
+            <div id="roomDetailsColumn">
+                <h3>Current Room Name/ID</h3>
+                <ul id="partyList">
+                    <li>Member 1</li>
+                    <li>Member 2</li>
+                    <li>Member 3</li>
+                </ul>
+                <button id="createRoomButton" type="submit">Create Room</button>
+                <button id="joinRoomButton" type="submit">Join Room</button>
+            </div>
+            <div id="votingColumn">
+                <h2>Movie Votes</h2>
+                <div id="votingContainer">
+                    <ul id="movieVotesList">
+                        <li>
+                            <div>
+                                <h3>Movie 1</h3>
+                                <button class="addVote" type="submit">Add Vote</button>
+                            </div>
+                            <h4>Votes: 2</h4>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>Movie 2</h3>
+                                <button class="addVote" type="submit">Add Vote</button>
+                            </div>
+                            <h4>Votes: 1</h4>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>Movie 3</h3>
+                                <button class="addVote" type="submit">Add Vote</button>
+                            </div>
+                            <h4>Votes: 0</h4>
+                        </li>
+                    </ul>
+                    <input id="titleInput" placeholder="Example Movie Title">
+                    <button id="titleSubmit" type="submit">Add Movie Choice</button>
+                </div>
+            </div>
         </main>
         <footer>
             <ul>
