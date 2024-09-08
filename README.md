@@ -17,10 +17,10 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 
 ### Design
 
-<img src="https://github.com/kobeynw/startup/blob/main/startupDesign_1.png" width="50%">
-<img src="https://github.com/kobeynw/startup/blob/main/startupDesign_2.png" width="50%">
-<img src="https://github.com/kobeynw/startup/blob/main/startupDesign_3.png" width="50%">
-<img src="https://github.com/kobeynw/startup/blob/main/startupDesign_4.png" width="50%">
+<img src="https://github.com/kobeynw/startup/pictures/blob/main/startupDesign_1.png" width="50%">
+<img src="https://github.com/kobeynw/startup/pictures/blob/main/startupDesign_2.png" width="50%">
+<img src="https://github.com/kobeynw/startup/pictures/blob/main/startupDesign_3.png" width="50%">
+<img src="https://github.com/kobeynw/startup/pictures/blob/main/startupDesign_4.png" width="50%">
 
 ### Technologies
 
