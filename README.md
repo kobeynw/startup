@@ -87,7 +87,8 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 - Knight helmet logo for the top next to the navbar
 
 ### Login
-- Email and password login and authentication on main page
+- Username and password login and authentication on main page
+- Username display and logout button on other pages
 
 ### Database
 - The Collection page will eventually display the movies and information that the user has stored
