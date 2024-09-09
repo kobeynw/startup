@@ -123,6 +123,8 @@ Web Certificates
 
 > ## HTML (Hypertext Markup Language)
 
+### Basics
+
 - HTML elements are represented using any of the various different tags (e.g. body tag)
 - Elements can have attributes assigned to them (e.g. id="main-body", href="https://byu.edu")
 - Special Characters:  
@@ -137,4 +139,38 @@ Web Certificates
     | 😀| \&#128512;|
 
 - Web servers will look for a file named "index.html" by default
-- Some elements are block format, while others are inline format (e.g. div is block and span in inline)
+- Some elements are block format, while others are inline format (e.g. div is block and span is inline)
+
+### Media
+
+- YouTube Videos: a YouTube video can be directly embedded in the HTML
+    1. first find the YouTube video online
+    2. right click on the video, then select "stats for nerds"
+    3. copy the video ID
+    4. create an iframe element to store the video
+    5. add an src attribute with a value of the embed url: "https://www.youtube.com/embed/[video ID]"  
+    Example:
+        ```html
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+        ``` 
+- Scalable Vector Graphics (SVG): a way to render graphics in HTML  
+    * Example:
+        ```html
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" stroke="red" fill="red" style="border: 1px solid #000000">
+        <circle cx="150" cy="100" r="50" />
+        </svg>
+        ```
+- Canvas: an element that can be drawn on using JavaScript
+    * Example:
+        ```html
+        <canvas id="canvasDemo" width="300" height="200" style="border: 1px solid #000000"></canvas>
+        <script>
+        const ctx = document.getElementById('canvasDemo').getContext('2d');
+        ctx.beginPath();
+        ctx.arc(150, 100, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = 'red';
+        ctx.strokeStyle = 'red';
+        ctx.fill();
+        ctx.stroke();
+        </script>
+        ```
