@@ -5,18 +5,24 @@
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Movie Knight</title>
         <link rel="icon" href="./pictures/movieKnightLogo.ico">
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Eagle+Lake&family=Uncial+Antiqua&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
-            <h1><a href="./index.html">Movie Knight</a></h1>
-            <img src="./pictures/movieKnightLogo.PNG" width="150px">
             <nav>
-                <ul>
-                    <li>My Collection</li>
-                    <li><a href="./filter.html">Movie Filter</a></li>
-                    <li><a href="./voting.html">Voting Room</a></li>
-                    <li>[username] <button>Log Out</button></li>
-                </ul>
+                <div><img id="logo" src="./pictures/movieKnightLogo.PNG" width="100px"></div>
+                <div><h1><a href="./index.html">Movie Knight</a></h1></div>
+                <div>
+                    <ul>
+                        <li><b>My Collection</b></li>
+                        <li><a href="./filter.html"><b>Movie Filter</b></a></li>
+                        <li><a href="./voting.html"><b>Voting Room</b></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <button id="user"><img src="./pictures/userIcon.png" width="50px"></button>
+                </div>
             </nav>
         </header>
         <main>
@@ -71,6 +77,7 @@
         <footer>
             <ul>
                 <li>Kobey Workman</li>
+                <li>|</li>
                 <li><a href="https://github.com/kobeynw/startup" target="_blank">GitHub</a></li>
             </ul>
         </footer>
