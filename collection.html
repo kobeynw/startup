@@ -25,35 +25,35 @@
                 </div>
             </nav>
         </header>
-        <main>
-            <div id="collection">
+        <main id="collectionMain">
+            <div id="collection" class="center">
                 <h2>My Collection</h2>
                 <table id="collectionList">
                     <tr>
                         <th>Title</th>
                         <th>Director</th>
                         <th>Year</th>
-                        <th></th>
+                        <th>Options</th>
                     </tr>
                     <tr>
-                        <td>Title 1</td>
-                        <td>Director 1</td>
-                        <td>Year 1</td>
-                        <td><button>Delete</button></td>
+                        <td>Guardians of the Galaxy Vol. 1</td>
+                        <td>James Gunn</td>
+                        <td>2014</td>
+                        <td><button class="collectionDeleteButton">Delete</button></td>
                     </tr>
                     <tr>
-                        <td>Title 2</td>
-                        <td>Director 2</td>
-                        <td>Year 2</td>
-                        <td><button>Delete</button></td>
+                        <td>Star Wars: A New Hope</td>
+                        <td>George Lucas</td>
+                        <td>1977</td>
+                        <td><button class="collectionDeleteButton">Delete</button></td>
                     </tr>
                 </table>
-                <button>Add Custom Movie</button>
+                <button class="collectionButton">Add Custom Movie</button>
             </div>
-            <div id="database">
+            <div id="database" class="center">
                 <h2>Movie Database</h2>
                 <input id="titleInput" placeholder="Search for a movie...">
-                <button id="titleSubmit" type="submit">Search</button>
+                <button id="titleSubmit" type="submit" class="collectionButton">Search</button>
                 <table id="searchList">
                     <tr>
                         <th>Title</th>
@@ -61,17 +61,17 @@
                         <th>Year</th>
                     </tr>
                     <tr>
-                        <td>Title 1</td>
-                        <td>Director 1</td>
-                        <td>Year 1</td>
+                        <td>Guardians of the Galaxy Vol. 1</td>
+                        <td>James Gunn</td>
+                        <td>2014</td>
                     </tr>
                     <tr>
-                        <td>Title 2</td>
-                        <td>Director 2</td>
-                        <td>Year 2</td>
+                        <td>Star Wars: A New Hope</td>
+                        <td>George Lucas</td>
+                        <td>1977</td>
                     </tr>
                 </table>
-                <button>Add to Collection</button>
+                <button class="collectionButton">Add to Collection</button>
             </div>
         </main>
         <footer>
