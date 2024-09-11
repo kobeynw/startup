@@ -25,45 +25,45 @@
                 </div>
             </nav>
         </header>
-        <main>
-            <div id="roomDetailsColumn">
-                <h3>Current Room Name/ID</h3>
+        <main id="votingMain">
+            <div id="roomDetailsColumn" class="center">
+                <h2>Current Room Name/ID</h2>
                 <ul id="partyList">
                     <li>Member 1</li>
                     <li>Member 2</li>
                     <li>Member 3</li>
                 </ul>
-                <button id="createRoomButton" type="submit">Create Room</button>
-                <button id="joinRoomButton" type="submit">Join Room</button>
+                <button id="createRoomButton" type="submit" class="button">Create Room</button>
+                <button id="joinRoomButton" type="submit" class="button">Join Room</button>
             </div>
-            <div id="votingColumn">
+            <div id="votingColumn" class="center">
                 <h2>Movie Votes</h2>
                 <div id="votingContainer">
                     <ul id="movieVotesList">
                         <li>
-                            <div>
-                                <h3>Movie 1</h3>
-                                <button class="addVote" type="submit">Add Vote</button>
-                            </div>
-                            <h4>Votes: 2</h4>
+                            <ul class="movieVotes">
+                                <li><h4>Movie 1</h4></li>
+                                <li><button class="addVote button" type="submit">Add Vote</button></li>
+                                <li><h4>Votes: 2</h4></li>
+                            </ul>
                         </li>
                         <li>
-                            <div>
-                                <h3>Movie 2</h3>
-                                <button class="addVote" type="submit">Add Vote</button>
-                            </div>
-                            <h4>Votes: 1</h4>
+                            <ul class="movieVotes">
+                                <li><h4>Movie 2</h4></li>
+                                <li><button class="addVote button" type="submit">Add Vote</button></li>
+                                <li><h4>Votes: 1</h4></li>
+                            </ul>
                         </li>
                         <li>
-                            <div>
-                                <h3>Movie 3</h3>
-                                <button class="addVote" type="submit">Add Vote</button>
-                            </div>
-                            <h4>Votes: 0</h4>
+                            <ul class="movieVotes">
+                                <li><h4>Movie 3</h4></li>
+                                <li><button class="addVote button" type="submit">Add Vote</button></li>
+                                <li><h4>Votes: 0</h4></li>
+                            </ul>
                         </li>
                     </ul>
-                    <input id="titleInput" placeholder="Example Movie Title">
-                    <button id="titleSubmit" type="submit">Add Movie Choice</button>
+                    <input id="titleInput" placeholder="Enter Movie Title...">
+                    <button id="titleSubmit" type="submit" class="button">Add Movie Choice</button>
                 </div>
             </div>
         </main>

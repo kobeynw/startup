@@ -25,9 +25,9 @@
                 </div>
             </nav>
         </header>
-        <main>
-            <div id="filter">
-                <h2>Filters</h2>
+        <main id="filterMain">
+            <div id="filter" class="center">
+                <h2 id="filterLabel">Filters</h2>
                 <div id="genreFilter">
                     <h3>Genre</h3>
                     <fieldset>
@@ -61,7 +61,7 @@
                         <output id="maxYearOutput" for="maxYearRange">2024</output>
                     </fieldset>
                 </div>
-                <div id="RatingFilter">
+                <div id="ratingFilter">
                     <h3>Rating</h3>
                     <div>
                         <fieldset>
@@ -79,9 +79,9 @@
                           </fieldset>
                     </div>
                 </div>
-                <button id="applyFilters" type="submit">Apply Filters</button>
+                <button id="applyFilters" type="submit" class="button">Apply Filters</button>
             </div>
-            <div id="results">
+            <div id="results" class="center">
                 <h2>Results</h2>
                 <table id="resultsList">
                     <tr>
@@ -100,7 +100,7 @@
                         <td>Year 2</td>
                     </tr>
                 </table>
-                <button id="randomButton" type="submit">Random Movie</button>
+                <button id="randomButton" type="submit" class="button">Random Movie</button>
             </div>
         </main>
         <footer>
