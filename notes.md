@@ -174,3 +174,95 @@ Web Certificates
         ctx.stroke();
         </script>
         ```
+
+> ## CSS (Cascading Style Sheets)
+
+### Rulesets breakdown:
+
+- Example Ruleset:
+    ```css
+    p {
+        color: green;
+    }
+    ```
+- 'p' - selector
+- 'color: green' - declaration
+- 'color' - property
+- 'green' - value
+
+### Attach CSS to HTML:  
+1. Add a style attribute to an HTML
+2. Add a style element within the header of the HTML
+3. Create a separate CSS file and link it to the HTML using a link element (preferred)
+
+### Box Model:
+- Elements are styled according to invisible boxes surrounding them
+- Hierarchy (inner-most to outer): content, padding, border, margin
+
+### Selectors:
+- Element type selector (e.g. body)
+- ID selector (e.g #uniqueIdentifier)
+- Class selector (e.g. .myClass)
+- Attribute selector (e.g. p[href='./summary.png'])
+- Pseudo-selector (e.g. a:hover)
+
+### Combinators:
+- Decendant (e.g. body section)
+- Child (.e.g body > p)
+- General sibling (e.g. div ~ p)
+- Adjacent sibling (e.g. p + span)
+
+### Animations:
+- Create or modify a ruleset to have animation properties (e.g. animation-name: fade; animation-duration: 3s)
+- Create keyframes for points in the animation that the animation will transition between (e.g. from a certain size to another)
+- Example:
+    ```css
+    p {
+        text-align: center;
+        font-size: 20vh;
+        animation-name: demo;
+        animation-duration: 3s;
+    }
+
+    @keyframes demo {
+        from {
+            font-size: 0vh;
+        }
+        95% {
+            font-size: 21vh;
+        }
+        to {
+            font-size: 20vh;
+        }
+    }
+    ```
+
+### Miscelaneous
+- Responsive Design:
+    * Display property options: none, block, inline, flex, grid
+    * Media Queries: change the styling of elements based on screen orientation or viewport width/height, etc.
+
+- Frameworks:
+    * Tailwind
+    * Bootstrap
+
+- Custom Fonts:
+    * .ttf file example:
+    ```css
+    @font-face {
+        font-family: 'Quicksand';
+        src: url('https://cs260.click/fonts/quicksand.ttf');
+    }
+
+    p {
+        font-family: Quicksand;
+    }
+    ```
+    * hosted font provider example:
+    ```css
+    @import url('https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap');
+
+    p {
+        font-family: 'Rubik Microbe';
+    }
+    ```
