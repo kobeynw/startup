@@ -97,3 +97,54 @@ nav a {
 nav a:hover {
     background-color: lightgray;
 }
+
+#user {
+    background-color: lightsteelblue;
+    border: none;
+    margin-right: 3vw;
+    margin-left: 3vw;
+}
+
+#user:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+#loginContainer {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    background-color: aliceblue;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-top: 3%;
+    border-radius: 5%;
+}
+
+#loginLabel {
+    margin-bottom: 50px;
+}
+
+#loginButton, #createAccountButton {
+    margin-top: 30px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: lightgreen;
+    padding: 8px;
+    font-size: 15px;
+}
+
+#loginButton:hover, #createAccountButton:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+    transform: scale(1.075);
+    transition-duration: 300ms;
+}
+
+.center {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
