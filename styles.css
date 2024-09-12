@@ -98,6 +98,26 @@ nav a:hover {
     background-color: lightgray;
 }
 
+table {
+    background-color: black;
+    border: solid black;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+th {
+    padding: 5px;
+    background-color: lightgray;
+    border: solid black;
+}
+
+td {
+    padding: 5px;
+    background-color: lightsteelblue;
+    border: solid black;
+}
+
 #user {
     background-color: lightsteelblue;
     border: none;
