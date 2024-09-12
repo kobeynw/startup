@@ -168,3 +168,36 @@ td {
     margin: auto;
     text-align: center;
 }
+
+.button {
+    margin-top: 30px;
+    margin-right: 20%;
+    margin-left: 20%;
+    border: none;
+    border-radius: 8px;
+    background-color: lightgreen;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.button:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition-duration: 300ms;
+}
+
+.collectionDeleteButton {
+    border: none;
+    border-radius: 8px;
+    background-color: lightgreen;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.collectionDeleteButton:hover {
+    background-color: greenyellow;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition-duration: 300ms;
+}
