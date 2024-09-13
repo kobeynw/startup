@@ -163,6 +163,54 @@ td {
     transition-duration: 300ms;
 }
 
+#collection, #database, #filter, #results, #roomDetailsColumn, #votingColumn {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 5%;
+    padding-top: 3%;
+    border-radius: 15px;
+    overflow-y: scroll;
+}
+
+#filterLabel {
+    grid-area: label;
+}
+
+#genreFilter {
+    grid-area: genre;
+}
+
+#scoreFilter {
+    grid-area: score;
+}
+
+#yearFilter {
+    grid-area: year;
+}
+
+#ratingFilter {
+    grid-area: rating;
+}
+
+#applyFilters {
+    grid-area: apply;
+}
+
+#filter {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+     "label label"
+     "genre score"
+     "year rating"
+     "apply apply"
+}
+
 .center {
     display: block;
     margin: auto;
