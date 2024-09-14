@@ -211,6 +211,25 @@ td {
      "apply apply"
 }
 
+#partyList li {
+    font-size: 20px;
+    padding: 15px;
+    list-style-type: none;
+    transform: translate(-20px, 0px);
+}
+
+#movieVotesList > li {
+    display: flex;
+    border: solid black;
+    margin-bottom: 10px;
+    flex-direction: row;
+    transform: translate(-20px, 0px);
+}
+
+#movieVotesList {
+    list-style-type: none;
+}
+
 .center {
     display: block;
     margin: auto;
@@ -248,4 +267,37 @@ td {
     cursor: pointer;
     transform: scale(1.05);
     transition-duration: 300ms;
+}
+
+.movieVotes {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.movieVotes li {
+    display: flex;
+    flex: 1;
+    transform: translate(-40px, 0px);
+}
+
+
+.movieVotes li:nth-child(2) {
+    border-right: solid black;
+}
+
+.movieVotes h4 {
+    min-width: 100px;
+    margin: auto;
+    text-align: center;
+}
+
+.movieVotes li button {
+    margin: auto;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 100px;
+    height: 35px;
 }
