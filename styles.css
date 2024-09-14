@@ -118,6 +118,13 @@ td {
     padding: 5px;
     background-color: lightsteelblue;
     border: solid black;
+    word-break: break-word;
+    min-width: 50px;
+    max-width: 300px;
+}
+
+input {
+    accent-color: #4b8242;
 }
 
 #user {
@@ -216,6 +223,7 @@ td {
     padding: 15px;
     list-style-type: none;
     transform: translate(-20px, 0px);
+    font-family: "Eagle Lake", serif;
 }
 
 #movieVotesList > li {
@@ -333,6 +341,11 @@ td {
         margin-top: 60px;
         margin-bottom: 60px;
     }
+
+    #votingContainer > button {
+        margin: auto;
+        margin-left: 20px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -358,6 +371,12 @@ td {
          "rating"
          "apply"
     }
+
+    #votingContainer > button {
+        margin: auto;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
 }
 
 @media (max-width: 460px) {
@@ -382,5 +401,10 @@ td {
         margin: auto;
         width: 100px;
         height: 35px;
+    }
+
+    #votingContainer > button {
+        margin: auto;
+        margin-top: 20px;
     }
 }
