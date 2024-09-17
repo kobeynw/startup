@@ -1,3 +1,5 @@
+/* ============================== BASIC HTML ELEMENTS ============================== */
+
 body {
     background-image: url("./pictures/movieKnightBG.PNG");
     background-size: cover;
@@ -32,21 +34,16 @@ footer {
 
 footer ul {
     margin: auto;
+    display: flex;
+    flex-direction: row;
     transform: translate(-20px, 0px);
 }
 
 footer li {
-    display: inline;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-footer a {
-    text-decoration: none;
-}
-
-footer a:hover {
-    color: lightgray;
+    display: flex;
+    margin: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 h1 {
@@ -127,16 +124,11 @@ input {
     accent-color: #4b8242;
 }
 
+/* ============================== ID ELEMENTS ============================== */
+
 #user {
-    background-color: lightsteelblue;
-    border: none;
     margin-right: 3vw;
     margin-left: 3vw;
-}
-
-#user:hover {
-    background-color: lightgray;
-    cursor: pointer;
 }
 
 #loginContainer {
@@ -238,6 +230,19 @@ input {
     list-style-type: none;
 }
 
+/* ============================== CLASS ELEMENTS ============================== */
+
+.icon {
+    background-color: lightsteelblue;
+    border: none;
+}
+
+.icon:hover {
+    cursor: pointer;
+    transform: scale(1.15, 1.15);
+    transition-duration: 300ms;
+}
+
 .center {
     display: block;
     margin: auto;
@@ -309,6 +314,8 @@ input {
     width: 100px;
     height: 35px;
 }
+
+/* ============================== MEDIA QUERIES ============================== */
 
 @media (max-width: 1150px) {
     nav ul li {
