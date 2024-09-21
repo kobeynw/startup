@@ -72,7 +72,6 @@ Web Certificates
 > ## The Console (Terminal)
 
 ### Basic Commands
-
 **echo** - Output the parameters of the command  
 **cd** - Change directory  
 **mkdir** - Make directory  
@@ -101,13 +100,11 @@ Web Certificates
 **man** - Look up a command in the manual  
 
 ### Special Characters
-
 **|** - Pipe the output from the left to the input on the right  
 **>** - Redirect the output from the left to a new file on the right  
 **>>** - Redirect the output from the left to append to an existing file on the right
 
 ### Examples
-
 1. Copy the file 'words.txt' into the subdirectory 'library' to a new file named 'words2.txt'
     ```console
     cp words.txt ./library/words2.txt
@@ -124,7 +121,6 @@ Web Certificates
 > ## HTML (Hypertext Markup Language)
 
 ### Basics
-
 - HTML elements are represented using any of the various different tags (e.g. body tag)
 - Elements can have attributes assigned to them (e.g. id="main-body", href="https://byu.edu")
 - Special Characters:  
@@ -142,7 +138,6 @@ Web Certificates
 - Some elements are block format, while others are inline format (e.g. div is block and span is inline)
 
 ### Media
-
 - YouTube Videos: a YouTube video can be directly embedded in the HTML
     1. first find the YouTube video online
     2. right click on the video, then select "stats for nerds"
@@ -178,7 +173,6 @@ Web Certificates
 > ## CSS (Cascading Style Sheets)
 
 ### Rulesets breakdown
-
 - Example Ruleset:
     ```css
     p {
@@ -474,3 +468,12 @@ Web Certificates
 
     fetchData();
     ```
+
+### Node.js
+- An application that allows web applications, servers, command line tools, and scripts to be created using JavaScript outside of a browser
+- With Node.js installed, you can run lines of JavaScript code by running **node** in the command line, which will then create an environment to run code in (use CTRL + c twice to quit)
+- NPM (Node Package Manager)
+    * Has hundreds of useful packages
+    * In your JS project directory, run **npm init**, which initializes a new project with some pre-existing packages
+    * To install a package, use **npm install \<package name\>** (do not add the new node_modules directory to your version control)
+    * Modify or create a new index.js file for your main project, and run **node index.js** to run the code
