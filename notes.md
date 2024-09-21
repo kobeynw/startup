@@ -3,13 +3,13 @@
 > ## Basics of Git
 Initialize repository in Github first, then clone to vs code using the URL. Use git status to check the current state of the files. Forking a repo is essentially copying it to experiment with, but a pull request can suggest changes to the author if desired.
 
-### Basic Git Pattern:
+### Basic Git Pattern
 1. Always pull before making a commit to avoid conflicts
 2. Make changes to the code
 3. Commit the changes
 4. Push the changes to github
 
-### Resolve Conflicts Using VS Code:
+### Resolve Conflicts Using VS Code
 1. Open the file with the conflict
 2. Open the source control tab and click the three dots
 3. Select Branch > Merge Branch
@@ -177,7 +177,7 @@ Web Certificates
 
 > ## CSS (Cascading Style Sheets)
 
-### Rulesets breakdown:
+### Rulesets breakdown
 
 - Example Ruleset:
     ```css
@@ -190,29 +190,29 @@ Web Certificates
 - 'color' - property
 - 'green' - value
 
-### Attach CSS to HTML:  
+### Attach CSS to HTML
 1. Add a style attribute to an HTML
 2. Add a style element within the header of the HTML
 3. Create a separate CSS file and link it to the HTML using a link element (preferred)
 
-### Box Model:
+### Box Model
 - Elements are styled according to invisible boxes surrounding them
 - Hierarchy (inner-most to outer): content, padding, border, margin
 
-### Selectors:
+### Selectors
 - Element type selector (e.g. body)
 - ID selector (e.g #uniqueIdentifier)
 - Class selector (e.g. .myClass)
 - Attribute selector (e.g. p[href='./summary.png'])
 - Pseudo-selector (e.g. a:hover)
 
-### Combinators:
+### Combinators
 - Decendant (e.g. body section)
 - Child (.e.g body > p)
 - General sibling (e.g. div ~ p)
 - Adjacent sibling (e.g. p + span)
 
-### Animations:
+### Animations
 - Create or modify a ruleset to have animation properties (e.g. animation-name: fade; animation-duration: 3s)
 - Create keyframes for points in the animation that the animation will transition between (e.g. from a certain size to another)
 - Example:
@@ -265,4 +265,212 @@ Web Certificates
     p {
         font-family: 'Rubik Microbe';
     }
+    ```
+
+> ## JavaScript (ECMAScript)
+
+### Basics
+- Special Loops:
+    * for in (used to iterate over an object's property names)
+    ```javascript
+    const obj = { a: 1, b: 'fish' };
+    for (const name in obj) {
+    console.log(name);
+    }
+    ```
+    * for of (used to iterate over an iterable's values; e.g. array, set, map)
+    ```javascript
+    const arr = ['a', 'b'];
+    for (const val of arr) {
+    console.log(val);
+    }
+    ```
+- Strings:
+    * Can be defined with single quotes, double quotes, or backticks (the backticks method allows a user to insert JS with ${})
+    ```javascript
+    const l = 'literal';
+    console.log(`string ${l + (1 + 1)} text`);
+    ```
+- Functions:
+    * Anonymous functions (function name can be passed into other functions)
+    ```javascript
+    const add = function (a, b) {
+        return a + b;
+    };
+    ```
+    * Arrow functions (concise syntax for functions)
+    ```javascript
+    // simplest form
+    () => 3;
+
+    // used inside a sorting method
+    a.sort((v1, v2) => v1 - v2);
+
+    // curly braces used when more than one expression needed
+    // this also means a return keyword is required
+    () => {
+        console.log("Hello, world");
+        return 3;
+    };
+    ```
+- Classes:
+    ```javascript
+    class Person {
+        constructor(name) {
+            this.name = name;
+        }
+
+        print() {
+            return 'My name is ' + this.name;
+        }
+    }
+
+    class Employee extends Person {
+        constructor(name, position) {
+            super(name);
+            this.position = position;
+        }
+
+        print() {
+            return super.print() + '. I am a ' + this.position;
+        }
+    }
+
+    const e = new Employee('Eich', 'programmer');
+    console.log(e.print());
+    ```
+
+### The Console
+- With a website deployed in a browser, you can open the DevTools by right clicking and selecting inspect
+- In the console tab, regular JavaScript code can be written and run
+- Use console.log():
+    * Formatted message
+    ```javascript
+    console.log('hello %s', 'world');
+    ```
+    * stylized console logging
+    ```javascript
+    console.log('%c JavaScript Demo', 'font-size:1.5em; color:green;');
+    ```
+- Use console timers:
+    ```javascript
+    console.time('demo time');
+    // ... some code that takes a long time.
+    console.timeEnd('demo time');
+    // OUTPUT: demo time: 9762.74 ms
+    ```
+- Use console.count():
+    ```javascript
+    console.count('a');
+    // OUTPUT: a: 1
+    console.count('a');
+    // OUTPUT: a: 2
+    console.count('b');
+    // OUTPUT: b: 1
+    ```
+
+### DOM (Document Object Model)
+- A hierarchical representation of the HTML structure of a webstie
+- Accessing the DOM via JavaScript
+    ```javascript
+    function insertChild(parentSelector, text) {
+        const newChild = document.createElement('div');
+        newChild.textContent = text;
+
+        const parentElement = document.querySelector(parentSelector);
+        parentElement.appendChild(newChild);
+    }
+
+    insertChild('#courses', 'new course');
+    ```
+- Event listeners: functions that are called when specific events are triggered on HTML elements
+    ```javascript
+    const submitDataEl = document.querySelector('#submitData');
+
+    submitDataEl.addEventListener('click', function (event) {
+        console.log(event.type);
+    });
+    ```
+
+### Miscelaneous
+- JavaScript Object Notation (JSON)
+    ```javascript
+    const obj = { a: 2, b: 'crockford', c: undefined };
+    const json = JSON.stringify(obj);
+    const objFromJson = JSON.parse(json);
+    ```
+- Regular Expressions
+    * Regex is built into JS, so it can be used via a Regex object or via a Regex literal
+    ```javascript
+    const objRegex = new RegExp('ab*', 'i');
+    const literalRegex = /ab*/i;
+    ```
+    * Utilize the string methods .match() or .replace()
+    ```javascript
+    const petRegex = /(dog)|(cat)|(bird)/gim;
+    const text = 'Both cats and dogs are pets, but not rocks.';
+
+    text.match(petRegex);
+    text.replace(petRegex, 'animal');
+    ```
+- Exceptions
+    ```javascript
+    function connectDatabase() {
+        throw new Error('connection error');
+    }
+
+    try {
+        connectDatabase();
+        console.log('never executed');
+    } catch (err) {
+        console.log(err);
+    } finally {
+        console.log('always executed');
+    }
+    ```
+- Local Storage
+    * Utilize local storage to store small amounts of data via JavaScript
+    ```javascript
+    let user = 'Alice';
+
+    localStorage.setItem('user', user);
+    console.log(localStorage.getItem('user'));
+    ```
+- Promises
+    * Use Promises in JavaScript when a task may need time to process, but shouldn't slow down the other functionality (e.g. when connecting to a database or making API calls)
+    * then, catch, finally
+    ```javascript
+    let promise = new Promise((resolve, reject) => {
+        let success = true;
+        if (success) {
+            resolve("Promise fulfilled!");
+        } else {
+            reject("Promise rejected!");
+        }
+    });
+
+    promise
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+        .finally(() => {
+            console.log("Promise settled.");
+        });
+    ```
+    * async/await (PREFERRED METHOD)
+    ```javascript
+    async function fetchData() {
+        try {
+            let response = await fetch('https://api.example.com/data');
+            let data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    fetchData();
     ```
