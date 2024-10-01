@@ -96,3 +96,32 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 
 ### Websocket
 - The Voting page will eventually display real-time movie votes from various users
+
+> ## CSS Content
+
+### Header, Footer, and Main content
+- Header and footer styled in blocks with consistent link styles and spacing
+- Main content styled as cards with consistent button and table styling
+
+### Navigation
+- Links styled with highlighting/scaling
+- Current page link is disabled for clarity and simplicity
+
+### Responsiveness
+- Style and layout change as window is resized
+- Certain elements are discarded with small sizes, such as the knight image in the header
+- Card elements transition from row layout to column layout with smaller screen sizes
+
+### Application Elements
+- Uses card styling for separation of elements
+- Styled tables consistently for collection, search functionality, and filter results functionality
+- Consistent colors and spacing
+
+### Application Text Content
+- Uses custom font for app title in the header, and for room party members
+- Uses sans-serif simple font for other text
+
+### Application Images
+- Includes logo image in the header
+- Using icon images for the footer links
+- Uses a favicon for tab display
