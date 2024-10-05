@@ -1,6 +1,6 @@
 /* ============================== BASIC HTML ELEMENTS ============================== */
 
-body {
+.body {
     background-image: url("./pictures/movieKnightBG.PNG");
     background-size: cover;
     background-position: fixed;
