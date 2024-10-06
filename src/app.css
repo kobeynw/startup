@@ -1,7 +1,7 @@
 /* ============================== BASIC HTML ELEMENTS ============================== */
 
 .body {
-    background-image: url("./pictures/movieKnightBG.PNG");
+    background-image: url("/movieKnightBG.PNG");
     background-size: cover;
     background-position: fixed;
 
