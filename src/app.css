@@ -126,6 +126,12 @@ input {
 
 /* ============================== ID ELEMENTS ============================== */
 
+#notFound {
+    margin: auto;
+    text-align: center;
+    font-size: 25px;
+}
+
 #user {
     margin-right: 3vw;
     margin-left: 3vw;
