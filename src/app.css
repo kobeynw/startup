@@ -1,15 +1,9 @@
 /* ============================== BASIC HTML ELEMENTS ============================== */
 
-.body {
+body {
     background-image: url("/movieKnightBG.PNG");
     background-size: cover;
-    background-position: fixed;
-
-    font-family: sans-serif;
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-    margin: 0;
+    background-repeat: repeat-y;
 }
 
 header {
@@ -237,6 +231,14 @@ input {
 }
 
 /* ============================== CLASS ELEMENTS ============================== */
+
+.body {
+    font-family: sans-serif;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
 
 .icon {
     background-color: lightsteelblue;
