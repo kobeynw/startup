@@ -12,8 +12,13 @@ export default function App() {
             <div className='body'>
                 <header>
                     <nav>
-                        <div><img id="logo" src="/movieKnightLogo.PNG" width="100px"></img></div>
-                        <div><h1><NavLink to="">Movie Knight</NavLink></h1></div>
+                        <div><img id="logo" src="/movieKnightLogo.png" width="50px"></img></div>
+                        <div><h1><NavLink to="">
+                            <h1>
+                                <img class="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
+                                <img id="secondWord" class="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
+                            </h1>
+                        </NavLink></h1></div>
                         <div>
                             <ul>
                                 <li><NavLink to="collection"><b>My Collection</b></NavLink></li>

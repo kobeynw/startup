@@ -131,6 +131,12 @@ input {
     margin-left: 3vw;
 }
 
+.movieKnightTitle {
+    margin-bottom: -15px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
 #loginContainer {
     display: flex;
     flex-direction: column;
@@ -369,10 +375,12 @@ input {
     }
 
     nav div:nth-child(1) {
-        display: flex;
-        flex: 0;
         margin-left: 3vw;
         margin-right: 0px;
+    }
+
+    #secondWord {
+        margin-right: -20px;
     }
 
     #filter {
