@@ -125,3 +125,20 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 - Includes logo image in the header
 - Using icon images for the footer links
 - Uses a favicon for tab display
+
+> ## React Content
+
+### Converting to React Framework
+- Bundled using Vite and transpiled
+
+### Components
+- **Login**
+- **Collection**
+- **Filter**
+- **Voting**
+
+### Router
+- Successfully routes login, collection, filter, and voting components
+
+### Hooks
+
