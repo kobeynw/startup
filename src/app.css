@@ -163,7 +163,7 @@ input {
     font-size: 15px;
 }
 
-#loginButton:hover, #createAccountButton:hover {
+#loginButton:hover:enabled, #createAccountButton:hover:enabled {
     background-color: greenyellow;
     cursor: pointer;
     transform: scale(1.075);
@@ -246,6 +246,11 @@ input {
     margin: 0;
 }
 
+.userInfoDisplay {
+    padding-right: 45px;
+    transform: translate(0px, -15px);
+}
+
 .icon {
     background-color: lightsteelblue;
     border: none;
@@ -274,7 +279,7 @@ input {
     font-size: 15px;
 }
 
-.button:hover {
+.button:hover:enabled {
     background-color: greenyellow;
     cursor: pointer;
     transform: scale(1.05);

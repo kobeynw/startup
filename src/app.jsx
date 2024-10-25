@@ -7,18 +7,39 @@ import { Filter } from './filter/filter';
 import { Voting } from './voting/voting';
 
 export default function App() {
+    const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+    const currentAuthState = username ? "authenticated" : "unauthenticated";
+    const [authState, setAuthState] = React.useState(currentAuthState);
+
+    function logoutUser() {
+        localStorage.removeItem('userName');
+        setAuthState("unauthenticated");
+    }
+
     return (
         <BrowserRouter>
             <div className='body'>
                 <header>
                     <nav>
                         <div><img id="logo" src="/movieKnightLogo.png" width="50px"></img></div>
-                        <div><h1><NavLink to="">
+                        <div>
+                        {authState === "authenticated" && (
                             <h1>
                                 <img class="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
                                 <img id="secondWord" class="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
                             </h1>
-                        </NavLink></h1></div>
+                        )}
+                        {authState === "unauthenticated" && (
+                            <h1>
+                                <NavLink to="">
+                                    <h1>
+                                        <img class="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
+                                        <img id="secondWord" class="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
+                                    </h1>
+                                </NavLink>
+                            </h1>
+                        )}
+                        </div>
                         <div>
                             <ul>
                                 <li><NavLink to="collection"><b>My Collection</b></NavLink></li>
@@ -26,14 +47,31 @@ export default function App() {
                                 <li><NavLink to="voting"><b>Voting Room</b></NavLink></li>
                             </ul>
                         </div>
-                        <div>
-                            <button id="user" className="icon"><img src="/userIcon.png" width="50px"></img></button>
+                        <div class="userInfoDisplay">
+                            <button className="button" onClick={() => logoutUser()} disabled={authState === "unauthenticated"}>Logout</button>
                         </div>
                     </nav>
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login />} exact />
+                    {authState === "unauthenticated" && (
+                        <>
+                            <Route path='/' element={
+                                <Login 
+                                    username={username}
+                                    authState={authState}
+                                    onAuthChange={(username, authState) => {
+                                        setAuthState(authState);
+                                        setUsername(username);
+                                    }}
+                                />} exact 
+                            />
+                            <Route path='/collection' element={<Collection />} />
+                        </>
+                    )}
+                    {authState === "authenticated" && (
+                        <Route path='/' element={<Collection />} />
+                    )}
                     <Route path='/collection' element={<Collection />} />
                     <Route path='/filter' element={<Filter />} />
                     <Route path='/voting' element={<Voting />} />
