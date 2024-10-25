@@ -15,15 +15,12 @@ export function Collection(props) {
         updateCollection();
     }, []);
 
-    function saveToCollection(newTitle, newDirector, newYear) {
-        // TEST CODE
-        // NOTE: MAKE SURE TO USE A UNIQUE ID
-        const newMovie = {
-            id3: {
-                title: newTitle,
-                director: newDirector,
-                year: newYear
-            }
+    function saveToCollection(id, newTitle, newDirector, newYear) {
+        const newMovie ={};
+        newMovie[id] = {
+            title: newTitle,
+            director: newDirector,
+            year: newYear
         };
 
         const newMovies = { ...userCollection.movies, ...newMovie };
@@ -31,11 +28,9 @@ export function Collection(props) {
 
         setUserCollection(userCollection);
         updateCollection();
-        // TEST CODE
     }
 
     function deleteFromCollection(titleToDelete, directorToDelete, yearToDelete) {
-        // TEST CODE
         for (const [id, movie] of Object.entries(userCollection.movies)) {
             if (movie.title === titleToDelete && movie.director === directorToDelete && movie.year === yearToDelete) {
                 delete userCollection.movies[id];
@@ -44,11 +39,9 @@ export function Collection(props) {
 
         setUserCollection(userCollection);
         updateCollection();
-        // TEST CODE
     }
 
     function fetchUserCollection() {
-        // TEST CODE
         const userCollection = {
             movies: {
                 id1: {
@@ -63,7 +56,6 @@ export function Collection(props) {
                 }
             }
         };
-        // TEST CODE
 
         return userCollection;
     }
@@ -85,43 +77,75 @@ export function Collection(props) {
         setCollectionRows(newCollectionRows);
     }
 
-    function fetchSearchResults(movieTitle) {
-        // TEST CODE
-        const searchResults = {
-            movies: {
-                id1: {
-                    title: `${movieTitle}`,
-                    director: "Some Director",
-                    year: 2000
-                },
-                id2: {
-                    title: "Knives Out",
-                    director: "Rian Johnson",
-                    year: 2019
-                }
+    async function fetchMovieInfo(movieId) {
+        const apiUrl = `http://www.omdbapi.com/?i=${movieId}&apikey=4ce31389`;
+    
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        };
-        // TEST CODE
-
-        return searchResults;
+            return await response.json();
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
     }
 
-    function updateSearch(movieTitle) {
-        const searchResults = fetchSearchResults(movieTitle);
-        const newResultsRows = [];
-    
-        for (const [i, movie] of Object.entries(searchResults.movies)) {
-            newResultsRows.push(
-                <tr key={i}>
-                    <td>{movie.title}</td>
-                    <td>{movie.director}</td>
-                    <td>{movie.year}</td>
-                    <td><button className="collectionButton" onClick={() => saveToCollection(movie.title, movie.director, movie.year)}>Add</button></td>
-                </tr>
-            );
-        }
+    async function fetchSearchResults(movieTitle) {
+        const searchResults = {
+            movies: {}
+        };
 
-        setResultsRows(newResultsRows);
+        const apiUrl = `http://www.omdbapi.com/?s=${movieTitle}&type=movie&apikey=4ce31389`;
+
+        try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
+            const search = data.Search;
+
+            const moviePromises = search.map(movie => fetchMovieInfo(movie.imdbID));
+            const movieArray = await Promise.all(moviePromises);
+            
+            movieArray.forEach(newMovie => {
+                if (newMovie) {
+                    searchResults.movies[newMovie.imdbID] = newMovie;
+                }
+            });
+
+            return searchResults;
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
+    }
+
+    async function updateSearch(movieTitle) {
+        try {
+            const searchResults = await fetchSearchResults(movieTitle);
+
+            console.log(searchResults);
+            const newResultsRows = [];
+        
+            for (const [i, movie] of Object.entries(searchResults.movies)) {
+                newResultsRows.push(
+                    <tr key={i}>
+                        <td>{movie.Title}</td>
+                        <td>{movie.Director}</td>
+                        <td>{movie.Year}</td>
+                        <td><button className="collectionButton" onClick={() => saveToCollection(i, movie.Title, movie.Director, movie.Year)}>Add</button></td>
+                    </tr>
+                );
+            }
+
+            setResultsRows(newResultsRows);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     const handleSearchQuery = (e) => {
@@ -143,7 +167,6 @@ export function Collection(props) {
                     </thead>
                     <tbody>{collectionRows}</tbody>
                 </table>
-                {/* <button className="button">Add Custom Movie</button> */}
             </div>
             <div id="database" className="center">
                 <h2>Movie Database</h2>
