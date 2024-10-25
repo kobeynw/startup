@@ -8,11 +8,12 @@ import { Voting } from './voting/voting';
 
 export default function App() {
     const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+    const [password, setpassword] = React.useState('');
     const currentAuthState = username ? "authenticated" : "unauthenticated";
     const [authState, setAuthState] = React.useState(currentAuthState);
 
     function logoutUser() {
-        localStorage.removeItem('userName');
+        localStorage.removeItem('username');
         setAuthState("unauthenticated");
     }
 
@@ -25,16 +26,16 @@ export default function App() {
                         <div>
                         {authState === "authenticated" && (
                             <h1>
-                                <img class="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
-                                <img id="secondWord" class="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
+                                <img className="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
+                                <img id="secondWord" className="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
                             </h1>
                         )}
                         {authState === "unauthenticated" && (
                             <h1>
                                 <NavLink to="">
                                     <h1>
-                                        <img class="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
-                                        <img id="secondWord" class="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
+                                        <img className="movieKnightTitle" src="/movieKnightTitle_01.png" height="50px"></img>
+                                        <img id="secondWord" className="movieKnightTitle" src="/movieKnightTitle_02.png" height="50px"></img>
                                     </h1>
                                 </NavLink>
                             </h1>
@@ -47,7 +48,7 @@ export default function App() {
                                 <li><NavLink to="voting"><b>Voting Room</b></NavLink></li>
                             </ul>
                         </div>
-                        <div class="userInfoDisplay">
+                        <div className="userInfoDisplay">
                             <button className="button" onClick={() => logoutUser()} disabled={authState === "unauthenticated"}>Logout</button>
                         </div>
                     </nav>
@@ -59,10 +60,12 @@ export default function App() {
                             <Route path='/' element={
                                 <Login 
                                     username={username}
+                                    password={password}
                                     authState={authState}
-                                    onAuthChange={(username, authState) => {
+                                    onAuthChange={(username, password, authState) => {
                                         setAuthState(authState);
                                         setUsername(username);
+                                        setpassword(password);
                                     }}
                                 />} exact 
                             />
@@ -72,7 +75,7 @@ export default function App() {
                     {authState === "authenticated" && (
                         <Route path='/' element={<Collection />} />
                     )}
-                    <Route path='/collection' element={<Collection />} />
+                    <Route path='/collection' element={<Collection username={username} password={password} />} />
                     <Route path='/filter' element={<Filter />} />
                     <Route path='/voting' element={<Voting />} />
                     <Route path='*' element={<NotFound />} />

@@ -286,7 +286,7 @@ input {
     transition-duration: 300ms;
 }
 
-.collectionDeleteButton {
+.collectionButton {
     border: none;
     border-radius: 8px;
     background-color: lightgreen;
@@ -294,7 +294,7 @@ input {
     font-size: 15px;
 }
 
-.collectionDeleteButton:hover {
+.collectionButton:hover {
     background-color: greenyellow;
     cursor: pointer;
     transform: scale(1.05);
