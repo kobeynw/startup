@@ -16,12 +16,13 @@ const RATING_ORDER = {
 export function Filter() {
     const userCollection = fetchUserCollection();
     const [resultsRows, setResultsRows] = useState([]);
+    const [resultsError, setResultsError] = useState("");
 
     const [genres, setGenres] = useState([]);
     const [minYear, setMinYear] = useState(1900);
     const [maxYear, setMaxYear] = useState(2024);
     const [minScore, setMinScore] = useState(0);
-    const [rating, setRating] = useState("Any");
+    const [rating, setRating] = useState("");
 
     function fetchUserCollection() {
         const userCollection = {
@@ -65,15 +66,25 @@ export function Filter() {
     }
 
     function followsCriteria(movie) {
+        if (genres.length === 0) {
+            setResultsError("[Please choose at least one genre]");
+            return false;
+        } else if (rating === "") {
+            setResultsError("[Please choose a rating]");
+            return false;
+        } else {
+            setResultsError(null);
+        }
+
         const categories = [movie.Genres, movie.Year, movie.Metascore, movie.Rated];
         categories.map((value, index) => {
             if (value == "N/A") {
                 if (index === 1) {
                     return [];
                 } else if (index === 2) {
-                    return maxYear - 1;
+                    return maxYear;
                 } else if (index === 3) {
-                    return minScore + 1;
+                    return minScore;
                 } else {
                     return rating;
                 }
@@ -240,7 +251,10 @@ export function Filter() {
                     <tbody>{resultsRows}</tbody>
                 </table>
                 {resultsRows.length === 0 && (
-                    <h4>No Results Found</h4>
+                    <>
+                        <h4>No Results Found</h4>
+                        {resultsError && <h5>{resultsError}</h5>}
+                    </>
                 )}
                 <button id="randomButton" type="submit" className="button" onClick={() => getRandomMovie()}>Random Movie</button>
             </div>
