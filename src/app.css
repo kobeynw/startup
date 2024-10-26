@@ -202,6 +202,10 @@ input {
     grid-area: rating;
 }
 
+#ratingFilter label {
+    margin-right: 10px;
+}
+
 #applyFilters {
     grid-area: apply;
 }
@@ -211,9 +215,16 @@ input {
     grid-gap: 10px;
     grid-template-areas:
      "label label"
-     "genre score"
-     "year rating"
+     "genre year"
+     "score rating"
      "apply apply"
+}
+
+#genreFieldset {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+     "ig ig ig ig ig ig"
 }
 
 #partyList li {
@@ -394,8 +405,8 @@ input {
         grid-template-areas:
          "label"
          "genre"
-         "score"
          "year"
+         "score"
          "rating"
          "apply"
     }

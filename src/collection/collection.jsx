@@ -127,8 +127,6 @@ export function Collection(props) {
     async function updateSearch(movieTitle) {
         try {
             const searchResults = await fetchSearchResults(movieTitle);
-
-            console.log(searchResults);
             const newResultsRows = [];
         
             for (const [i, movie] of Object.entries(searchResults.movies)) {
