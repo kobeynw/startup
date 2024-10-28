@@ -1,21 +1,28 @@
 import React from 'react';
 import { useState } from 'react';
 
-export function Voting() {
+export function Voting(props) {
     const [newMovie, setNewMovie] = useState("");
     const [listError, setListError] = useState(null);
     const [voteCounts, setVoteCounts] = useState({});
+    const [currentVote, setCurrentVote] = useState("");
 
     const [creatingRoom, setCreatingRoom] = useState(false);
     const [roomName, setRoomName] = useState("My Voting Room");
     const [joiningRoom, setJoiningRoom] = useState(false);
-    const [roomID, setRoomID] = useState(-1);
+    const [roomID, setRoomID] = useState(0);
+    const [members, setMembers] = useState([props.username]);
+
+    const membersList = members.map(username => (
+        <li>⚔️&nbsp;&nbsp;&nbsp;{username}</li>
+    ));
 
     const votesList = Object.entries(voteCounts).map(([movie, voteCount]) => (
         <li key={movie}>
             <ul className="movieVotes">
                 <li><h4>{movie}</h4></li>
-                <li><button className="addVote button" type="submit" onClick={() => addVote(movie)}>Add Vote</button></li>
+                {/* <li><button className="addVote button" type="submit" onClick={() => addVote(movie)}>Add Vote</button></li> */}
+                <li><input type="radio" name="addVote" onChange={() => addVote(movie)} /></li>
                 <li><h4>Votes: {voteCount}</h4></li>
             </ul>
         </li>
@@ -23,18 +30,22 @@ export function Voting() {
 
     function addVote(movie) {
         const newVoteCounts = structuredClone(voteCounts);
-        if (movie in newVoteCounts) {
-            newVoteCounts[movie] += 1;
-        } else {
-            newVoteCounts[movie] = 0;
+
+        if (newVoteCounts[currentVote] > 0) {
+            newVoteCounts[currentVote] -= 1;
         }
+        newVoteCounts[movie] += 1;
         
+        setCurrentVote(movie);
         setVoteCounts(newVoteCounts);
     }
 
     function updateVoteCounts() {
         if (!(newMovie in voteCounts)) {
-            addVote(newMovie);
+            const newVoteCounts = structuredClone(voteCounts);
+            newVoteCounts[newMovie] = 0;
+            setVoteCounts(newVoteCounts);
+
             setListError(null);
         } else {
             setListError("Movie Already In Voting List");
@@ -49,7 +60,7 @@ export function Voting() {
 
     function getRoomNameByID() {
         // TEST CODE
-        return "New Voting Room";
+        return "Super Rad Voting Room";
         // TEST CODE
     }
 
@@ -60,10 +71,20 @@ export function Voting() {
         }
     }
 
+    function getPartyMembers() {
+        const partyMembers = [];
+        partyMembers.push(props.username);
+        partyMembers.push("CoolCat264");
+        partyMembers.push("SpongeBob555");
+
+        setMembers(partyMembers);
+    }
+
     function handleJoinRoom(e) {
         if (e.keyCode === 13) {
             setJoiningRoom(false);
             setRoomName(getRoomNameByID());
+            getPartyMembers();
         }
     }
 
@@ -71,26 +92,24 @@ export function Voting() {
         <main id="votingMain">
             <div id="roomDetailsColumn" className="center">
                 <h2>{roomName}</h2>
-                {roomID >= 0 && <h2>Room ID: {roomID}</h2>}
-                {roomID >=0 && 
+                {roomID > 0 && <h2>Room ID: {roomID}</h2>}
+                {roomID > 0 && 
                     <ul id="partyList">
-                        <li>Member 1</li>
-                        <li>Member 2</li>
-                        <li>Member 3</li>
+                        {membersList}
                     </ul>
                 }
                 <button id="createRoomButton" type="submit" className="button" onClick={() => setCreatingRoom(true)}>Create Room</button>
                 {creatingRoom && 
                     <>
                         <h4>Name your new room and press 'Enter':</h4>
-                        <input id="createRoomInput" value={roomName} onChange={(e) => setRoomName(e.target.value)} onKeyDown={handleCreateRoom} placeholder="Voting Room Name..." />
+                        <input id="createRoomInput" value={roomName !== "My Voting Room" ? roomName : null} onChange={(e) => setRoomName(e.target.value)} onKeyDown={handleCreateRoom} placeholder="Voting Room Name..." />
                     </>
                 }
                 <button id="joinRoomButton" type="submit" className="button" onClick={() => setJoiningRoom(true)}>Join Room</button>
                 {joiningRoom &&
                     <>
                     <h4>Type the Room ID and press 'Enter':</h4>
-                    <input id="joinRoomInput" value={roomID} onChange={(e) => setRoomID(e.target.value)} onKeyDown={handleJoinRoom} placeholder="Voting Room ID..." />
+                    <input id="joinRoomInput" value={roomID > 0 ? roomID : null} onChange={(e) => setRoomID(e.target.value)} onKeyDown={handleJoinRoom} placeholder="Voting Room ID..." />
                 </>
                 }
             </div>

@@ -227,8 +227,14 @@ input {
      "ig ig ig ig ig ig"
 }
 
+#partyList {
+    border: solid black;
+    border-radius: 10px;
+}
+
 #partyList li {
     font-size: 20px;
+    text-align: left;
     padding: 15px;
     list-style-type: none;
     transform: translate(-20px, 0px);
@@ -326,7 +332,6 @@ input {
     transform: translate(-40px, 0px);
 }
 
-
 .movieVotes li:nth-child(2) {
     border-right: solid black;
 }
@@ -337,12 +342,13 @@ input {
     text-align: center;
 }
 
-.movieVotes li button {
+.movieVotes li input {
     margin: auto;
     margin-right: 20px;
     margin-left: 20px;
-    width: 100px;
-    height: 35px;
+    width: 50px;
+    height: 20px;
+    cursor: pointer;
 }
 
 /* ============================== MEDIA QUERIES ============================== */
