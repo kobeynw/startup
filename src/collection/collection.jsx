@@ -78,7 +78,7 @@ export function Collection(props) {
     }
 
     async function fetchMovieInfo(movieId) {
-        const apiUrl = `http://www.omdbapi.com/?i=${movieId}&apikey=4ce31389`;
+        const apiUrl = `https://www.omdbapi.com/?i=${movieId}&apikey=4ce31389`;
     
         try {
             const response = await fetch(apiUrl);
@@ -97,7 +97,7 @@ export function Collection(props) {
             movies: {}
         };
 
-        const apiUrl = `http://www.omdbapi.com/?s=${movieTitle}&type=movie&apikey=4ce31389`;
+        const apiUrl = `https://www.omdbapi.com/?s=${movieTitle}&type=movie&apikey=4ce31389`;
 
         try {
             const response = await fetch(apiUrl);
