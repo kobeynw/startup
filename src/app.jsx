@@ -69,15 +69,15 @@ export default function App() {
                                     }}
                                 />} exact 
                             />
-                            <Route path='/collection' element={<Collection />} />
+                            <Route path='/collection' element={<Collection username={username} password={password} authState={authState} />} />
                         </>
                     )}
                     {authState === "authenticated" && (
-                        <Route path='/' element={<Collection />} />
+                        <Route path='/' element={<Collection username={username} password={password} authState={authState} />} />
                     )}
-                    <Route path='/collection' element={<Collection username={username} password={password} />} />
+                    <Route path='/collection' element={<Collection username={username} password={password} authState={authState} />} />
                     <Route path='/filter' element={<Filter />} />
-                    <Route path='/voting' element={<Voting username={username} />} />
+                    <Route path='/voting' element={<Voting username={username} authState={authState} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 

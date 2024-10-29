@@ -67,10 +67,10 @@ export function Filter() {
 
     function followsCriteria(movie) {
         if (genres.length === 0) {
-            setResultsError("[Please choose at least one genre]");
+            setResultsError("Please choose at least one genre");
             return false;
         } else if (rating === "") {
-            setResultsError("[Please choose a rating]");
+            setResultsError("Please choose a rating");
             return false;
         } else {
             setResultsError(null);
@@ -252,8 +252,8 @@ export function Filter() {
                 </table>
                 {resultsRows.length === 0 && (
                     <>
-                        <h4>No Results Found</h4>
-                        {resultsError && <h5>{resultsError}</h5>}
+                        <h5>No Results Found</h5>
+                        {resultsError && <h5>&#9888; {resultsError}</h5>}
                     </>
                 )}
                 <button id="randomButton" type="submit" className="button" onClick={() => getRandomMovie()}>Random Movie</button>

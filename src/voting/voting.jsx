@@ -98,19 +98,22 @@ export function Voting(props) {
                         {membersList}
                     </ul>
                 }
-                <button id="createRoomButton" type="submit" className="button" onClick={() => setCreatingRoom(true)}>Create Room</button>
+                {props.authState === "unauthenticated" &&
+                    <h5>&#9888; Please Log In to Use This Feature</h5>
+                }
+                <button id="createRoomButton" type="submit" className="button" onClick={() => setCreatingRoom(true)} disabled={joiningRoom || props.authState === "unauthenticated"} >Create Room</button>
                 {creatingRoom && 
                     <>
                         <h4>Name your new room and press 'Enter':</h4>
                         <input id="createRoomInput" value={roomName !== "My Voting Room" ? roomName : null} onChange={(e) => setRoomName(e.target.value)} onKeyDown={handleCreateRoom} placeholder="Voting Room Name..." />
                     </>
                 }
-                <button id="joinRoomButton" type="submit" className="button" onClick={() => setJoiningRoom(true)}>Join Room</button>
+                <button id="joinRoomButton" type="submit" className="button" onClick={() => setJoiningRoom(true)} disabled={creatingRoom || props.authState === "unauthenticated"} >Join Room</button>
                 {joiningRoom &&
                     <>
-                    <h4>Type the Room ID and press 'Enter':</h4>
-                    <input id="joinRoomInput" value={roomID > 0 ? roomID : null} onChange={(e) => setRoomID(e.target.value)} onKeyDown={handleJoinRoom} placeholder="Voting Room ID..." />
-                </>
+                        <h4>Type the Room ID and press 'Enter':</h4>
+                        <input id="joinRoomInput" value={roomID > 0 ? roomID : null} onChange={(e) => setRoomID(e.target.value)} onKeyDown={handleJoinRoom} placeholder="Voting Room ID..." />
+                    </>
                 }
             </div>
             <div id="votingColumn" className="center">

@@ -168,8 +168,11 @@ export function Collection(props) {
             </div>
             <div id="database" className="center">
                 <h2>Movie Database</h2>
+                {props.authState === "unauthenticated" &&
+                    <h5>&#9888; Please Log In to Use This Feature</h5>
+                }
                 <input id="titleInput" placeholder="Search for a movie..." value={searchQuery} onChange={handleSearchQuery} />
-                <button id="titleSubmit" className="button" type="submit" onClick={() => updateSearch(searchQuery)} disabled={!searchQuery}>Search</button>
+                <button id="titleSubmit" className="button" type="submit" onClick={() => updateSearch(searchQuery)} disabled={!searchQuery || props.authState === "unauthenticated"}>Search</button>
                 <table id="searchList">
                     <thead>
                         <tr>
