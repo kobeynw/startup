@@ -132,13 +132,14 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 - Bundled using Vite and transpiled
 
 ### Components
-- **Login**
-- **Collection**
-- **Filter**
-- **Voting**
+- **Login** - (Login) - User can enter and submit a username and password, which logs in or registers the user and takes them to the collection page
+- **Collection** - (API Service, Database) - Populates the user's collection with two initial mock movie entries; allows the user to search for any movie and calls the omdb API directly; allows the user to add or delete movies to and from their collection, but does not save data yet
+- **Filter** - (Database) - Allows users to filter personal collection with certain criteria; currently only four mock movies are used as an example (these mock movies require at lease one of the following filters: "Action", "Adventure", "Sci-Fi", "Comedy", "Family", or "Animation" genres; and "Any" or "PG-13" ratings)
+- **Voting** - (Websocket) - Will allow users to create or join a real-time voting room, but currently allows any Room ID to be entered to join, and uses two other mock usernames; allows users to add movies to be voted for, and vote for current movies
 
 ### Router
 - Successfully routes login, collection, filter, and voting components
 
 ### Hooks
-
+- Utilizes useState for every page for various state variables
+- Utilizes useEffect on the collection page to re-render the page when necessary
