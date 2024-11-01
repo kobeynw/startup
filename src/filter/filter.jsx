@@ -117,7 +117,6 @@ export function Filter() {
     }
 
     function updateResultsRows(results) {
-        console.log(results);
         const newResultsRows = [];
 
         for (const [i, movie] of Object.entries(results.movies)) {
