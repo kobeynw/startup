@@ -7,6 +7,7 @@ let users = {};  // {username: username, password, token}
 let movieCollections = {};  // {username: {movies: {id1: {Title, Director, Year, Genres, Metascore, Rated} } } }
 
 app.use(express.json());
+app.use(express.static('public'));
 
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
