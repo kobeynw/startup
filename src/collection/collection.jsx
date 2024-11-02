@@ -14,12 +14,15 @@ export function Collection(props) {
         updateCollection();
     }, []);
 
-    async function saveToCollection(id, newTitle, newDirector, newYear) {
+    async function saveToCollection(id, newTitle, newDirector, newYear, newGenres, newMetascore, newRated) {
         const newMovie ={};
         newMovie[id] = {
-            title: newTitle,
-            director: newDirector,
-            year: newYear
+            Title: newTitle,
+            Director: newDirector,
+            Year: newYear,
+            Genres: newGenres,
+            Metascore: newMetascore,
+            Rated: newRated
         };
 
         const response = await fetch('/collection/add', {
@@ -141,7 +144,7 @@ export function Collection(props) {
                         <td>{movie.Title}</td>
                         <td>{movie.Director}</td>
                         <td>{movie.Year}</td>
-                        <td><button className="collectionButton" onClick={() => saveToCollection(i, movie.Title, movie.Director, movie.Year)}>Add</button></td>
+                        <td><button className="collectionButton" onClick={() => saveToCollection(i, movie.Title, movie.Director, movie.Year, movie.Genres, movie.Metascore, movie.Rated)}>Add</button></td>
                     </tr>
                 );
             }

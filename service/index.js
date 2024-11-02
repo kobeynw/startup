@@ -19,10 +19,10 @@ apiRouter.post('/auth/create', async (req, res) => {
     if (user) {
         res.status(409).send({ msg: 'Username Taken' });
     } else {
-        user = { username: req.body.username, password: req.body.password, token: uuid.v4() };
-        users[user.username] = user;
+        const newUser = { username: req.body.username, password: req.body.password, token: uuid.v4() };
+        users[newUser.username] = newUser;
 
-        res.send({ token: user.token });
+        res.send({ token: newUser.token });
     }
 });
 
