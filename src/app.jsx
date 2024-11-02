@@ -13,8 +13,16 @@ export default function App() {
     const [authState, setAuthState] = React.useState(currentAuthState);
 
     function logoutUser() {
-        localStorage.removeItem('username');
-        setAuthState("unauthenticated");
+        fetch('/api/auth/logout', {
+            method: 'delete'
+        })
+            .catch(() => {
+                // Logout failed (User likely offline)
+            })
+            .finally(() => {
+                localStorage.removeItem('username');
+                setAuthState("unauthenticated");
+            });
     }
 
     return (
@@ -69,13 +77,13 @@ export default function App() {
                                     }}
                                 />} exact 
                             />
-                            <Route path='/collection' element={<Collection username={username} password={password} authState={authState} />} />
+                            <Route path='/collection' element={<Collection username={username} authState={authState} />} />
                         </>
                     )}
                     {authState === "authenticated" && (
-                        <Route path='/' element={<Collection username={username} password={password} authState={authState} />} />
+                        <Route path='/' element={<Collection username={username} authState={authState} />} />
                     )}
-                    <Route path='/collection' element={<Collection username={username} password={password} authState={authState} />} />
+                    <Route path='/collection' element={<Collection username={username} authState={authState} />} />
                     <Route path='/filter' element={<Filter />} />
                     <Route path='/voting' element={<Voting username={username} authState={authState} />} />
                     <Route path='*' element={<NotFound />} />

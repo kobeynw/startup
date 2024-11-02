@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 export function Collection(props) {
     const username = props.username;
-    const password = props.password;
 
     const [userCollection, setUserCollection] = useState(fetchUserCollection());
     const [collectionRows, setCollectionRows] = useState([]);
@@ -15,7 +14,7 @@ export function Collection(props) {
         updateCollection();
     }, []);
 
-    function saveToCollection(id, newTitle, newDirector, newYear) {
+    async function saveToCollection(id, newTitle, newDirector, newYear) {
         const newMovie ={};
         newMovie[id] = {
             title: newTitle,
@@ -23,53 +22,60 @@ export function Collection(props) {
             year: newYear
         };
 
-        const newMovies = { ...userCollection.movies, ...newMovie };
-        userCollection.movies = newMovies;
+        const response = await fetch('/collection/add', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({ username: username, movie: newMovie})
+        });
 
-        setUserCollection(userCollection);
+        const body = await response.json();
+        const newCollection = body.collection;
+
+        setUserCollection(newCollection);
         updateCollection();
     }
 
-    function deleteFromCollection(titleToDelete, directorToDelete, yearToDelete) {
-        for (const [id, movie] of Object.entries(userCollection.movies)) {
-            if (movie.title === titleToDelete && movie.director === directorToDelete && movie.year === yearToDelete) {
-                delete userCollection.movies[id];
-            }
-        }
+    async function deleteFromCollection(id) {
+        const response = await fetch('/collection/delete', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({ id: id })
+        });
 
-        setUserCollection(userCollection);
+        const body = await response.json();
+        const newCollection = body.collection;
+
+        setUserCollection(newCollection);
         updateCollection();
     }
 
-    function fetchUserCollection() {
-        const userCollection = {
-            movies: {
-                id1: {
-                    title: "Guardians of the Galaxy Vol. 1",
-                    director: "James Gunn",
-                    year: 2014
-                },
-                id2: {
-                    title: "Star Wars: A New Hope",
-                    director: "George Lucas",
-                    year: 1977
-                }
-            }
-        };
+    async function fetchUserCollection() {
+        const response = await fetch('/collection/get', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({ username: username })
+        });
 
-        return userCollection;
+        const body = await response.json();
+        return body.collection;
     }
 
     function updateCollection() {
         const newCollectionRows = [];
 
-        for (const [i, movie] of Object.entries(userCollection.movies)) {
+        for (const [id, movie] of Object.entries(userCollection.movies)) {
             newCollectionRows.push(
-                <tr key={i}>
+                <tr key={id}>
                     <td>{movie.title}</td>
                     <td>{movie.director}</td>
                     <td>{movie.year}</td>
-                    <td><button className="collectionButton" onClick={() => deleteFromCollection(movie.title, movie.director, movie.year)}>Delete</button></td>
+                    <td><button className="collectionButton" onClick={() => deleteFromCollection(id)}>Delete</button></td>
                 </tr>
             );
         }

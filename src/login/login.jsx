@@ -4,9 +4,32 @@ export function Login(props) {
     const [username, setUsername] = React.useState(props.username);
     const [password, setPassword] = React.useState(props.password);
 
-    function loginUser() {
-        localStorage.setItem('username', username);
-        props.onAuthChange(username, password, "authenticated");
+    async function authEndpoint(endpoint) {
+        const response = await fetch(endpoint, {
+            method: 'post',
+            body: JSON.stringify({ username: username, password: password }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
+
+        if (response?.status === 200) {
+            localStorage.setItem('username', username);
+            props.onAuthChange(username, password, "authenticated");
+        } else {
+            const body = await response.json();
+
+            console.log(`${body.msg}`);
+            // TODO: implement error display for register/login errors
+        }
+    }
+
+    async function loginUser() {
+        authEndpoint('/api/auth/login');
+    }
+
+    async function createUser() {
+        authEndpoint('/api/auth/create');
     }
 
     return (
@@ -24,7 +47,7 @@ export function Login(props) {
                     </div>
                     <div>
                         <button id="loginButton" type="submit" onClick={() => loginUser()} disabled={!username || !password}>Login</button>
-                        <button id="createAccountButton" type="submit" onClick={() => loginUser()} disabled={!username || !password}>Create Account</button>
+                        <button id="createAccountButton" type="submit" onClick={() => createUser()} disabled={!username || !password}>Create Account</button>
                     </div>
                 </form>
             </div>
