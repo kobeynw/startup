@@ -143,3 +143,26 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 ### Hooks
 - Utilizes useState for every page for various state variables
 - Utilizes useEffect on the collection page to re-render the page when necessary
+
+> ## Service Content
+
+### Node.js/Express HTTP service
+- Successfully created and deployed
+
+### Static middleware for frontend
+- Front end served up using Express static middleware
+
+### Calls to third party endpoints
+- Makes calls to the OMDB third party API
+- Searches movies to add to the user's collection
+- Filters movies from the collection based on different criteria
+
+### Backend service endpoints
+- Register, Login, and Logout endpoints for authentication (will use database for persistence later)
+- Get, Add, and Delete endpoints for user collection manipulation
+
+### Frontend calls service endpoints
+- Login component calls Register and Login endpoints
+- App component calls Logout endpoint
+- Collection component calls Get, Add, and Delete endpoints
+- Filter component calls Get endpoint
