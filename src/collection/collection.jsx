@@ -4,14 +4,18 @@ import { useState, useEffect } from 'react';
 export function Collection(props) {
     const username = props.username;
 
-    const [userCollection, setUserCollection] = useState(fetchUserCollection());
     const [collectionRows, setCollectionRows] = useState([]);
-
     const [searchQuery, setSearchQuery] = useState('');
     const [resultsRows, setResultsRows] = useState([]);
 
     useEffect(() => {
-        updateCollection();
+        async function getCollection() {
+            const collection = await fetchUserCollection();
+            updateCollection(collection);
+            return collection;
+        }
+
+        getCollection();
     }, []);
 
     async function saveToCollection(id, newTitle, newDirector, newYear, newGenres, newMetascore, newRated) {
@@ -25,7 +29,7 @@ export function Collection(props) {
             Rated: newRated
         };
 
-        const response = await fetch('/collection/add', {
+        const response = await fetch('/api/collection/add', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -36,54 +40,60 @@ export function Collection(props) {
         const body = await response.json();
         const newCollection = body.collection;
 
-        setUserCollection(newCollection);
-        updateCollection();
+        updateCollection(newCollection);
     }
 
     async function deleteFromCollection(id) {
-        const response = await fetch('/collection/delete', {
+        const response = await fetch('/api/collection/delete', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             },
-            body: JSON.stringify({ id: id })
+            body: JSON.stringify({ username: username, id: id })
         });
 
         const body = await response.json();
         const newCollection = body.collection;
 
-        setUserCollection(newCollection);
-        updateCollection();
+        updateCollection(newCollection);
     }
 
     async function fetchUserCollection() {
-        const response = await fetch('/collection/get', {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            },
-            body: JSON.stringify({ username: username })
-        });
-
-        const body = await response.json();
-        return body.collection;
-    }
-
-    function updateCollection() {
-        const newCollectionRows = [];
-
-        for (const [id, movie] of Object.entries(userCollection.movies)) {
-            newCollectionRows.push(
-                <tr key={id}>
-                    <td>{movie.title}</td>
-                    <td>{movie.director}</td>
-                    <td>{movie.year}</td>
-                    <td><button className="collectionButton" onClick={() => deleteFromCollection(id)}>Delete</button></td>
-                </tr>
-            );
+        if (username != '' && username != null) {
+            const response = await fetch(`/api/collection/get/${username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            });
+    
+            const body = await response.json();
+    
+            if (body != null) {
+                return body.collection;
+            }
         }
 
-        setCollectionRows(newCollectionRows);
+        return null;
+    }
+
+    function updateCollection(newCollection) {
+        if (newCollection && newCollection.movies) {
+            const newCollectionRows = [];
+
+            for (const [id, movie] of Object.entries(newCollection.movies)) {
+                newCollectionRows.push(
+                    <tr key={id}>
+                        <td>{movie.Title}</td>
+                        <td>{movie.Director}</td>
+                        <td>{movie.Year}</td>
+                        <td><button className="collectionButton" onClick={() => deleteFromCollection(id)}>Delete</button></td>
+                    </tr>
+                );
+            }
+
+            setCollectionRows(newCollectionRows);
+        }
     }
 
     async function fetchMovieInfo(movieId) {

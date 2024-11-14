@@ -52,8 +52,8 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 });
 
 // GET MOVIE COLLECTION
-apiRouter.get('/collection/get', (req, res) => {
-    const movieCollection = movieCollections[req.body.username];
+apiRouter.get('/collection/get/:username', (req, res) => {
+    const movieCollection = movieCollections[req.params.username];
 
     if (movieCollection) {
         res.send({ collection: movieCollection });
@@ -75,7 +75,7 @@ apiRouter.post('/collection/add', (req, res) => {
 
         res.send({ collection: userCollection});
     } else {
-        const newCollection = {movies: {newMovie}}
+        const newCollection = {movies: newMovie}
         movieCollections[username] = newCollection;
 
         res.send({ collection: newCollection});

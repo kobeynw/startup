@@ -3,8 +3,12 @@ import React from 'react';
 export function Login(props) {
     const [username, setUsername] = React.useState(props.username);
     const [password, setPassword] = React.useState(props.password);
+    const [isTaken, setIsTaken] = React.useState(false);
+    const [isInvalid, setIsInvalid] = React.useState(false);
 
     async function authEndpoint(endpoint) {
+        setIsInvalid(false);
+        setIsTaken(false);
         const response = await fetch(endpoint, {
             method: 'post',
             body: JSON.stringify({ username: username, password: password }),
@@ -16,19 +20,21 @@ export function Login(props) {
         if (response?.status === 200) {
             localStorage.setItem('username', username);
             props.onAuthChange(username, password, "authenticated");
-        } else {
+        } else if (response?.status === 401) {
             const body = await response.json();
-
-            console.log(`${body.msg}`);
-            // TODO: implement error display for register/login errors
+            setIsInvalid(true);
+        } else if (response?.status === 409) {
+            setIsTaken(true);
         }
     }
 
-    async function loginUser() {
+    async function loginUser(e) {
+        e.preventDefault();
         authEndpoint('/api/auth/login');
     }
 
-    async function createUser() {
+    async function createUser(e) {
+        e.preventDefault();
         authEndpoint('/api/auth/create');
     }
 
@@ -46,8 +52,14 @@ export function Login(props) {
                         <input id="password" type="password" onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <div>
-                        <button id="loginButton" type="submit" onClick={() => loginUser()} disabled={!username || !password}>Login</button>
-                        <button id="createAccountButton" type="submit" onClick={() => createUser()} disabled={!username || !password}>Create Account</button>
+                        {isTaken &&
+                            <h5>&#9888; Username Taken</h5>
+                        }
+                        {isInvalid &&
+                            <h5>&#9888; Invalid Username or Password</h5>
+                        }
+                        <button id="loginButton" type="submit" onClick={(e) => loginUser(e)} disabled={!username || !password}>Login</button>
+                        <button id="createAccountButton" type="submit" onClick={(e) => createUser(e)} disabled={!username || !password}>Create Account</button>
                     </div>
                 </form>
             </div>
