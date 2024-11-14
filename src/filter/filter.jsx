@@ -128,12 +128,14 @@ export function Filter(props) {
         if (userCollection && userCollection.movies) {
             const movieKeys = Object.keys(userCollection.movies);
             const randomKey = movieKeys[Math.floor(Math.random() * movieKeys.length)];
-            
-            const randomMovie = userCollection.movies[randomKey];
-            const randomMovieObj = {randomKey: randomMovie};
-            const randomResults = {movies: randomMovieObj};
-    
-            updateResultsRows(randomResults);
+
+            if (randomKey) {
+                const randomMovie = userCollection.movies[randomKey];
+                const randomMovieObj = {randomKey: randomMovie};
+                const randomResults = {movies: randomMovieObj};
+        
+                updateResultsRows(randomResults);
+            }
         }
     }
 

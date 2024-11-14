@@ -7,6 +7,8 @@ export function Collection(props) {
     const [collectionRows, setCollectionRows] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [resultsRows, setResultsRows] = useState([]);
+    const [networkError, setNetworkError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         async function getCollection() {
@@ -97,6 +99,7 @@ export function Collection(props) {
     }
 
     async function fetchMovieInfo(movieId) {
+        setNetworkError(null);
         const apiUrl = `https://www.omdbapi.com/?i=${movieId}&apikey=4ce31389`;
     
         try {
@@ -106,12 +109,16 @@ export function Collection(props) {
             }
             return await response.json();
         } catch (error) {
+            setNetworkError('Network Error');
             console.error('Error:', error);
             return null;
         }
     }
 
     async function fetchSearchResults(movieTitle) {
+        setNetworkError(null);
+        setIsLoading(true);
+
         const searchResults = {
             movies: {}
         };
@@ -119,6 +126,11 @@ export function Collection(props) {
         const apiUrl = `https://www.omdbapi.com/?s=${movieTitle}&type=movie&apikey=4ce31389`;
 
         try {
+            if (movieTitle.length < 3) {
+                setNetworkError('Title length too short');
+                return null;
+            }
+
             const response = await fetch(apiUrl);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -138,8 +150,11 @@ export function Collection(props) {
 
             return searchResults;
         } catch (error) {
+            setNetworkError('Network Error');
             console.error('Error:', error);
             return null;
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -201,8 +216,16 @@ export function Collection(props) {
                             <th>Options</th>
                         </tr>
                     </thead>
-                    <tbody>{resultsRows}</tbody>
+                    <tbody>{!isLoading && !networkError && 
+                        resultsRows
+                    }</tbody>
                 </table>
+                {isLoading &&
+                    <h4>Fetching Movies...</h4>
+                }
+                {networkError &&
+                    <h5>&#9888; {networkError}</h5>
+                }
             </div>
         </main>
     );
