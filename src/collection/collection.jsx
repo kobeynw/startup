@@ -154,7 +154,7 @@ export function Collection(props) {
                         <td>{movie.Title}</td>
                         <td>{movie.Director}</td>
                         <td>{movie.Year}</td>
-                        <td><button className="collectionButton" onClick={() => saveToCollection(i, movie.Title, movie.Director, movie.Year, movie.Genres, movie.Metascore, movie.Rated)}>Add</button></td>
+                        <td><button className="collectionButton" onClick={() => saveToCollection(i, movie.Title, movie.Director, movie.Year, movie.Genre, movie.Metascore, movie.Rated)}>Add</button></td>
                     </tr>
                 );
             }

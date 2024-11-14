@@ -1,10 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 
-const GENRES_LIST = [
-    "Action", "Adventure", "Fantasy", "Sci-Fi", "Crime", 
-    "Comedy", "Drama", "Romance", "Musical", "Horror", 
-    "Mystery", "Thriller", "Animation", "Family", "History"];
 const RATING_ORDER = {
     "G": 1,
     "PG": 2,
@@ -13,10 +9,12 @@ const RATING_ORDER = {
     "Any": 5
 };
 
-export function Filter() {
-    const userCollection = fetchUserCollection();
+export function Filter(props) {
+    const username = props.username;
     const [resultsRows, setResultsRows] = useState([]);
     const [resultsError, setResultsError] = useState("");
+    const [userCollection, setUserCollection] = useState(null);
+    fetchUserCollection();
 
     const [genres, setGenres] = useState([]);
     const [minYear, setMinYear] = useState(1900);
@@ -24,45 +22,21 @@ export function Filter() {
     const [minScore, setMinScore] = useState(0);
     const [rating, setRating] = useState("");
 
-    function fetchUserCollection() {
-        const userCollection = {
-            movies: {
-                id1: {
-                    Title: "Guardians of the Galaxy Vol. 1",
-                    Genres: ["Action", "Adventure", "Comedy"],
-                    Director: "James Gunn",
-                    Year: 2014,
-                    Metascore: 8.0,
-                    Rated: "PG-13"
-                },
-                id2: {
-                    Title: "Star Wars: A New Hope",
-                    Genres: ["Action", "Adventure", "Sci-Fi"],
-                    Director: "George Lucas",
-                    Year: 1977,
-                    Metascore: 5.5,
-                    Rated: "PG-13"
-                },
-                id3: {
-                    Title: "Star Wars: The Empire Strikes Back",
-                    Genres: ["Action", "Adventure", "Sci-Fi"],
-                    Director: "George Lucas",
-                    Year: 1980,
-                    Metascore: 9.5,
-                    Rated: "PG-13"
-                },
-                id4: {
-                    Title: "Finding Nemo",
-                    Genres: ["Family", "Animation"],
-                    Director: "Andrew Stanton",
-                    Year: 2003,
-                    Metascore: 8.2,
-                    Rated: "G"
-                },
+    async function fetchUserCollection() {
+        if (username != '' && username != null) {
+            const response = await fetch(`/api/collection/get/${username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            });
+    
+            const body = await response.json();
+    
+            if (body != null) {
+                setUserCollection(body.collection);
             }
-        };
-
-        return userCollection;
+        }
     }
 
     function followsCriteria(movie) {
@@ -76,7 +50,7 @@ export function Filter() {
             setResultsError(null);
         }
 
-        const categories = [movie.Genres, movie.Year, movie.Metascore, movie.Rated];
+        const categories = [movie.Genres ?? "N/A", movie.Year ?? "N/A", movie.Metascore ?? "N/A", movie.Rated ?? "N/A"];
         categories.map((value, index) => {
             if (value == "N/A") {
                 if (index === 1) {
@@ -93,13 +67,13 @@ export function Filter() {
             }
         })
 
-        const currentGenres = movie.Genres;
+        const currentGenres = movie.Genres ? movie.Genres.split(", ") : [];
         const intersectingGenres = currentGenres.filter(value => genres.includes(value));
-
         const hasMatchingGenres = intersectingGenres.length > 0;
-        const inYearRange = (movie.Year >= minYear && movie.Year <= maxYear);
-        const greaterThanMinScore = movie.Metascore >= minScore;
-        const lessThanRating = RATING_ORDER[movie.Rated] <= RATING_ORDER[rating];
+
+        const inYearRange = movie.Year ? (movie.Year >= minYear && movie.Year <= maxYear) : false;
+        const greaterThanMinScore = movie.Metascore ? movie.Metascore >= minScore : false;
+        const lessThanRating = movie.Rated ? RATING_ORDER[movie.Rated] <= RATING_ORDER[rating] : false;
 
         return (hasMatchingGenres && inYearRange && greaterThanMinScore && lessThanRating);
     }
@@ -107,9 +81,11 @@ export function Filter() {
     function filterCollection() {
         const searchResults = {movies: {}};
 
-        for (const [id, movie] of Object.entries(userCollection.movies)) {
-            if (followsCriteria(movie)) {
-                searchResults.movies[id] = movie;
+        if (userCollection && userCollection.movies) {
+            for (const [id, movie] of Object.entries(userCollection.movies)) {
+                if (followsCriteria(movie)) {
+                    searchResults.movies[id] = movie;
+                }
             }
         }
 
@@ -132,7 +108,8 @@ export function Filter() {
         setResultsRows(newResultsRows);
     }
 
-    function updateSearch() {
+    function updateSearch(e) {
+        e.preventDefault();
         const searchResults = filterCollection();
         updateResultsRows(searchResults);
     }
@@ -145,15 +122,19 @@ export function Filter() {
         }
     }
 
-    function getRandomMovie() {
-        const movieKeys = Object.keys(userCollection.movies);
-        const randomKey = movieKeys[Math.floor(Math.random() * movieKeys.length)];
-        
-        const randomMovie = userCollection.movies[randomKey];
-        const randomMovieObj = {randomKey: randomMovie};
-        const randomResults = {movies: randomMovieObj};
+    function getRandomMovie(e) {
+        e.preventDefault();
 
-        updateResultsRows(randomResults);
+        if (userCollection && userCollection.movies) {
+            const movieKeys = Object.keys(userCollection.movies);
+            const randomKey = movieKeys[Math.floor(Math.random() * movieKeys.length)];
+            
+            const randomMovie = userCollection.movies[randomKey];
+            const randomMovieObj = {randomKey: randomMovie};
+            const randomResults = {movies: randomMovieObj};
+    
+            updateResultsRows(randomResults);
+        }
     }
 
     return (
@@ -235,7 +216,12 @@ export function Filter() {
                           </fieldset>
                     </div>
                 </div>
-                <button id="applyFilters" type="submit" className="button" onClick={() => updateSearch()}>Apply Filters</button>
+                <div id="applyFilters">
+                {props.authState === "unauthenticated" &&
+                    <h5>&#9888; Please Log In to Use This Feature</h5>
+                }
+                <button type="submit" className="button" onClick={(e) => updateSearch(e)} disabled={props.authState === "unauthenticated"}>Apply Filters</button>
+                </div>
             </div>
             <div id="results" className="center">
                 <h2>Results</h2>
@@ -255,7 +241,7 @@ export function Filter() {
                         {resultsError && <h5>&#9888; {resultsError}</h5>}
                     </>
                 )}
-                <button id="randomButton" type="submit" className="button" onClick={() => getRandomMovie()}>Random Movie</button>
+                <button id="randomButton" type="submit" className="button" onClick={(e) => getRandomMovie(e)} disabled={props.authState === "unauthenticated"}>Random Movie</button>
             </div>
         </main>
     );

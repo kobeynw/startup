@@ -84,7 +84,7 @@ export default function App() {
                         <Route path='/' element={<Collection username={username} authState={authState} />} />
                     )}
                     <Route path='/collection' element={<Collection username={username} authState={authState} />} />
-                    <Route path='/filter' element={<Filter />} />
+                    <Route path='/filter' element={<Filter username={username} authState={authState} />} />
                     <Route path='/voting' element={<Voting username={username} authState={authState} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
