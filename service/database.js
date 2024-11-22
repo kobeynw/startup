@@ -38,10 +38,6 @@ async function createUser(username, password) {
     return user;
 }
 
-// function createNewCollection(usernameParam) {
-
-// }
-
 async function getMovieCollection(usernameParam) {
     const cursor = await movieCollections.findOne(
         { username: usernameParam }
@@ -65,8 +61,6 @@ async function updateCollection(usernameParam, newID, newInfo) {
         { $set: { [`movies.${newID}`]: newInfo } },
         { returnDocument: 'after' }
     );
-
-    console.log(cursor);
 
     if (cursor.movies) {
         return cursor.movies;
