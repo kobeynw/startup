@@ -7,7 +7,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('movie_knight');
 const users = db.collection('users');
-const movie_collections = db.collection('movie_collections');
+const movieCollections = db.collection('movie_collections');
 
 (async function testConnection() {
     await client.connect();
@@ -38,8 +38,38 @@ async function createUser(username, password) {
     return user;
 }
 
+function getMovieCollection(usernameParam) {
+    const query = { username: usernameParam };
+    const cursor = movieCollections.findOne(query);
+
+    return cursor ? cursor : null;
+}
+
+async function updateCollection(usernameParam, newID, newInfo) {
+    const cursor = await movieCollections.findOneAndUpdate(
+        { username: usernameParam },
+        { $set: { [`movies.${newID}`]: newInfo } },
+        { returnDocument: 'after' }
+    );
+
+    return cursor.value.movies;
+}
+
+async function deleteFromCollection(usernameParam, idToDelete) {
+    const cursor = await movieCollections.findOneAndUpdate(
+        { username: usernameParam },
+        { $unset: { [`movies.${idToDelete}`]: '' } },
+        { returnDocument: 'after' }
+    );
+
+    return cursor.value.movies;
+}
+
 module.exports = {
     getUserByUsername,
     getUserByToken,
-    createUser
+    createUser,
+    getMovieCollection,
+    updateCollection,
+    deleteFromCollection
 };
