@@ -30,8 +30,8 @@ export function Collection(props) {
             Metascore: newMetascore,
             Rated: newRated
         };
-
-        const response = await fetch('/api/collection/add', {
+        
+        const response = await fetch(`/api/collection/add/${username}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -46,7 +46,7 @@ export function Collection(props) {
     }
 
     async function deleteFromCollection(id) {
-        const response = await fetch('/api/collection/delete', {
+        const response = await fetch(`/api/collection/delete/${username}`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'

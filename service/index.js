@@ -26,7 +26,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 
         setAuthCookie(res, user.token);
 
-        res.send({ token: newUser.token });
+        res.send({ token: user.token });
     }
 });
 
@@ -66,8 +66,8 @@ secureApiRouter.use(async (req, res, next) => {
 });
 
 // GET MOVIE COLLECTION
-apiRouter.get('/collection/get/:username', (req, res) => {
-    const movieCollection = DB.getMovieCollection(req.params.username);
+secureApiRouter.get('/collection/get/:username', async (req, res) => {
+    const movieCollection = await DB.getMovieCollection(req.params.username);
 
     if (movieCollection) {
         res.send({ collection: movieCollection });
@@ -77,23 +77,23 @@ apiRouter.get('/collection/get/:username', (req, res) => {
 });
 
 // ADD TO MOVIE COLLECTION
-apiRouter.post('/collection/add', (req, res) => {
+secureApiRouter.post('/collection/add/:username', async (req, res) => {
     const username = req.params.username;
     const newMovie = req.body.movie;
-    const newID = newMovie.id;
-    const newInfo = newMovie.newID;
+    const newID = Object.keys(newMovie)[0];
+    const newInfo = newMovie[newID];
 
-    const updatedMovies = DB.updateCollection(username, newID, newInfo);
+    const updatedMovies = await DB.updateCollection(username, newID, newInfo);
     const updatedCollection = { movies: updatedMovies };
     res.send({ collection: updatedCollection });
 });
 
 // DELETE FROM MOVIE COLLECTION
-apiRouter.post('/collection/delete', (req, res) => {
+secureApiRouter.post('/collection/delete/:username', async (req, res) => {
     const username = req.params.username;
     const movieIDToDelete = req.body.id;
 
-    const updatedMovies = DB.deleteFromCollection(username, movieIDToDelete);
+    const updatedMovies = await DB.deleteFromCollection(username, movieIDToDelete);
     const updatedCollection = { movies: updatedMovies };
     res.send({ collection: updatedCollection });
 });

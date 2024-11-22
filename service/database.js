@@ -38,21 +38,41 @@ async function createUser(username, password) {
     return user;
 }
 
-function getMovieCollection(usernameParam) {
-    const query = { username: usernameParam };
-    const cursor = movieCollections.findOne(query);
+// function createNewCollection(usernameParam) {
+
+// }
+
+async function getMovieCollection(usernameParam) {
+    const cursor = await movieCollections.findOne(
+        { username: usernameParam }
+    );
 
     return cursor ? cursor : null;
 }
 
 async function updateCollection(usernameParam, newID, newInfo) {
+    const currentCollection = await getMovieCollection(usernameParam);
+    if (!currentCollection) {
+        const defaultCollection = {
+            username: usernameParam,
+            movies: {}
+        };
+        await movieCollections.insertOne(defaultCollection);
+    }
+
     const cursor = await movieCollections.findOneAndUpdate(
         { username: usernameParam },
         { $set: { [`movies.${newID}`]: newInfo } },
         { returnDocument: 'after' }
     );
 
-    return cursor.value.movies;
+    console.log(cursor);
+
+    if (cursor.movies) {
+        return cursor.movies;
+    } else {
+        return null;
+    }
 }
 
 async function deleteFromCollection(usernameParam, idToDelete) {
@@ -62,7 +82,11 @@ async function deleteFromCollection(usernameParam, idToDelete) {
         { returnDocument: 'after' }
     );
 
-    return cursor.value.movies;
+    if (cursor.movies) {
+        return cursor.movies;
+    } else {
+        return null;
+    }
 }
 
 module.exports = {
