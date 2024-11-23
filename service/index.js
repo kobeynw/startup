@@ -37,9 +37,8 @@ apiRouter.post('/auth/login', async (req, res) => {
             res.send({ token: user.authToken });
             return
         }
-    } else {
-        res.status(401).send({ msg: 'Unauthorized' });
     }
+    res.status(401).send({ msg: 'Unauthorized' });
 });
 
 // LOGOUT USER

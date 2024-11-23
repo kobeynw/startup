@@ -18,7 +18,6 @@ export function Login(props) {
         });
 
         if (response?.status === 200) {
-            localStorage.setItem('username', username);
             props.onAuthChange(username, password, "authenticated");
         } else if (response?.status === 401) {
             setIsInvalid(true);

@@ -7,7 +7,7 @@ import { Filter } from './filter/filter';
 import { Voting } from './voting/voting';
 
 export default function App() {
-    const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+    const [username, setUsername] = React.useState('');
     const [password, setpassword] = React.useState('');
     const currentAuthState = username ? "authenticated" : "unauthenticated";
     const [authState, setAuthState] = React.useState(currentAuthState);
@@ -20,7 +20,6 @@ export default function App() {
                 // Logout failed (User likely offline)
             })
             .finally(() => {
-                localStorage.removeItem('username');
                 setAuthState("unauthenticated");
             });
     }
