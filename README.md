@@ -166,3 +166,24 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 - App component calls Logout endpoint
 - Collection component calls Get, Add, and Delete endpoints
 - Filter component calls Get endpoint
+
+> ## Database/Login Content
+
+### User registration
+- User registration endpoint updates MongoDB database for user data persistence
+
+### User authentication and logout
+- Authentication is required to store and update movie collections under a certain username
+- Auth tokens are used during a session and deleted upon logout
+
+### Stores data in MongoDB
+- User information (username, password, auth token) are stored in a database for data persistence
+- User movie collections are likewise stored in a database
+
+### Stores and retrieves credentials in MongoDB
+- User information and user movie collections are stored in MongoDB
+
+### Restricted functionality based on authentication state
+- Registration is restricted if username is already in use
+- Login is restricted if username and password are not in the database
+- All collection manipulation, voting, and 3rd party movie search calls are restricted unless a user is logged in
