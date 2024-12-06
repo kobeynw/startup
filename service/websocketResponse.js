@@ -6,11 +6,12 @@ class CreateResponse {
 }
 
 class JoinResponse {
-    constructor(type, roomID, roomName, members) {
+    constructor(type, roomID, roomName, members, voteCounts) {
         this.type = type;
         this.roomID = roomID;
         this.roomName = roomName;
         this.members = members;
+        this.voteCounts = voteCounts;
     }
 }
 
