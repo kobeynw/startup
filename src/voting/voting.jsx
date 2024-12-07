@@ -54,6 +54,12 @@ export function Voting(props) {
         } else if (response.type === RoomEvent.System) {
             console.log(response.value.msg);
         } else if (response.type === RoomEvent.Error) {
+            setRoomID(0);
+            setInParty(false);
+            setRoomName("My VotingRoom");
+            setMembers([props.username]);
+            setVoteCounts({});
+            setNewMovie("");
             setJoinError(response.message);
         }
 

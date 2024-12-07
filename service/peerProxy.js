@@ -70,18 +70,18 @@ function joinHandler(conn, msg) {
     const newUser = msg.username;
     const joinRoomID = msg.roomID;
 
-    conn.roomID = joinRoomID;
-
     if (!(joinRoomID in roomInfo)) {
         const errorRes = new ErrorResponse(RoomEvent.Error, "Invalid Join ID");
         const errorData = JSON.stringify(errorRes);
         notifyRoot(conn, errorData);
     } else {
+        conn.roomID = joinRoomID;
+
         const joinRoomName = roomInfo[joinRoomID]["name"];
         const joinVoteCounts = roomInfo[joinRoomID]["votes"];
         const currentMembers = roomInfo[joinRoomID]["members"];
 
-        if (!(newUser in currentMembers)) {
+        if (!(currentMembers.includes(newUser))) {
             const newMembers = [...currentMembers, newUser];
             roomInfo[joinRoomID]["members"] = newMembers;
         
@@ -90,6 +90,11 @@ function joinHandler(conn, msg) {
         
             notifyRoot(conn, joinResData);
             broadcast(conn, joinResData);
+        } else {
+            const joinRes = new JoinResponse(RoomEvent.Join, joinRoomID, joinRoomName, currentMembers, joinVoteCounts);
+            const joinResData = JSON.stringify(joinRes);
+        
+            notifyRoot(conn, joinResData);
         }
     }
 }
