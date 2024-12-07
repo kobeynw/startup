@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
+const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}/dbname?retryWrites=true&w=majority&tls=true`;
 const client = new MongoClient(url);
 const db = client.db('movie_knight');
 const users = db.collection('users');

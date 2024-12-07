@@ -1,4 +1,4 @@
-const { CreateResponse, JoinResponse, AddMovieResponse, VoteResponse, LeaveResponse, ErrorResponse } = require('./websocketResponse');
+const { CreateResponse, JoinResponse, AddMovieResponse, VoteResponse, ErrorResponse } = require('./websocketResponse');
 
 const { WebSocketServer } = require('ws');
 const uuid = require('uuid');
