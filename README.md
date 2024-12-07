@@ -187,3 +187,27 @@ Have you ever had a movie night where nobody could decide on a movie to watch? D
 - Registration is restricted if username is already in use
 - Login is restricted if username and password are not in the database
 - All collection manipulation, voting, and 3rd party movie search calls are restricted unless a user is logged in
+
+> ## WebSocket Content
+
+### Backend listens for WebSocket communication
+- Created a peer proxy to listen for incoming communications and to send outgoing responses
+- Handles internal party separation for distinct connections and distinct parties holding certain connections
+
+### Frontend makes WebSocket connection
+- Created a room communicator to listen for incoming peer proxy responses and to send outgoing requests
+- Handles different events sent to the voting page (create room, join room, add movie, add vote, system notifications, and error messages)
+
+### Data sent over WebSocket connection
+- Uses request and response classes to separate information into packages that are serialized and deserialized easily
+- Classes hold information such as event type, usernames, room names, room IDs, etc
+
+### WebSocket data displayed
+- Party name, ID, and members displayed
+- Movie candidates and votes displayed
+
+### All visible elements are working
+- Create Room (updates room name, room ID, and members)
+- Join Room (updates room name, room ID, and members)
+- Add Movie (updates movie candidates and initializes votes)
+- Add Vote (updates vote for specific movie)
