@@ -16,9 +16,9 @@ class JoinResponse {
 }
 
 class AddMovieResponse {
-    constructor(type, movieTitle) {
+    constructor(type, voteCounts) {
         this.type = type;
-        this.movieTitle = movieTitle;
+        this.voteCounts = voteCounts;
     }
 }
 
@@ -28,3 +28,12 @@ class VoteResponse {
         this.voteCounts = voteCounts;
     }
 }
+
+class ErrorResponse {
+    constructor(type, message) {
+        this.type = type;
+        this.message = message;
+    }
+}
+
+module.exports = { CreateResponse, JoinResponse, AddMovieResponse, VoteResponse, ErrorResponse };

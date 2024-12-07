@@ -1,4 +1,4 @@
-class CreateRequest {
+export class CreateRequest {
     constructor(type, username, roomName) {
         this.type = type;
         this.username = username;
@@ -6,23 +6,26 @@ class CreateRequest {
     }
 }
 
-class JoinRequest {
-    constructor(type, roomID) {
+export class JoinRequest {
+    constructor(type, roomID, username) {
         this.type = type;
         this.roomID = roomID;
+        this.username = username;
     }
 }
 
-class AddMovieRequest {
-    constructor(type, movieTitle) {
+export class AddMovieRequest {
+    constructor(type, roomID, movieTitle) {
         this.type = type;
+        this.roomID = roomID;
         this.movieTitle = movieTitle;
     }
 }
 
-class VoteRequest {
-    constructor(type, voteCounts) {
+export class VoteRequest {
+    constructor(type, roomID, voteCounts) {
         this.type = type;
+        this.roomID = roomID;
         this.voteCounts = voteCounts;
     }
 }

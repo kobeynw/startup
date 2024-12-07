@@ -1,34 +1,80 @@
 import React from 'react';
 import { useState } from 'react';
 
+import { RoomComm, RoomEvent } from './roomCommunicator';
+import { CreateRequest, JoinRequest, AddMovieRequest, VoteRequest } from './websocketRequest';
+
 export function Voting(props) {
     const [newMovie, setNewMovie] = useState("");
     const [listError, setListError] = useState(null);
-    const [voteCounts, setVoteCounts] = useState({});
+    const [voteCounts, setVoteCounts] = useState({}); // websocket
     const [currentVote, setCurrentVote] = useState("");
+    const [inParty, setInParty] = useState(false);
+    const [joinError, setJoinError] = useState(null); // websocket
+    const [renderKey, setRenderKey] = useState(0);
 
     const [creatingRoom, setCreatingRoom] = useState(false);
-    const [roomName, setRoomName] = useState("My Voting Room");
+    const [roomName, setRoomName] = useState("My Voting Room"); // websocket
     const [joiningRoom, setJoiningRoom] = useState(false);
-    const [roomID, setRoomID] = useState(0);
-    const [members, setMembers] = useState([props.username]);
+    const [roomID, setRoomID] = useState(0); // websocket
+    const [members, setMembers] = useState([props.username]); // websocket
+    const [responses, setResponses] = React.useState([]);
+
+    // websocket
+    React.useEffect(() => {
+        RoomComm.addHandler(handleRoomResponse);
+
+        return () => {
+            RoomComm.removeHandler(handleRoomResponse);
+        };
+    }, [responses]);
+
+    function handleRoomResponse(response) {
+        setResponses((prevResponses) => [...prevResponses, response]);
+        updateRoom(response);
+    }
+
+    function updateRoom(response) {
+        if (response.type === RoomEvent.AddMovie) {
+            setVoteCounts(response.voteCounts);
+        } else if (response.type === RoomEvent.Create) {
+            setRoomID(response.roomID);
+            setMembers([props.username]);
+
+            setInParty(true);
+        } else if (response.type === RoomEvent.Join) {
+            setRoomID(response.roomID);
+            setRoomName(response.roomName);
+            setMembers(response.members);
+            setVoteCounts(response.voteCounts);
+
+            setInParty(true);
+        } else if (response.type === RoomEvent.Vote) {
+            setVoteCounts(response.voteCounts);
+        } else if (response.type === RoomEvent.System) {
+            console.log(response.value.msg);
+        } else if (response.type === RoomEvent.Error) {
+            setJoinError(response.message);
+        }
+
+        setRenderKey((prevKey) => prevKey + 1);
+    }
 
     const membersList = members.map(username => (
-        <li>⚔️&nbsp;&nbsp;&nbsp;{username}</li>
+        <li key={username}>⚔️&nbsp;&nbsp;&nbsp;{username}</li>
     ));
 
     const votesList = Object.entries(voteCounts).map(([movie, voteCount]) => (
         <li key={movie}>
             <ul className="movieVotes">
                 <li><h4>{movie}</h4></li>
-                {/* <li><button className="addVote button" type="submit" onClick={() => addVote(movie)}>Add Vote</button></li> */}
-                <li><input type="radio" name="addVote" onChange={() => addVote(movie)} /></li>
+                <li><input type="radio" name="addVote" onChange={() => addVote(movie, true)} checked={movie === currentVote} /></li>
                 <li><h4>Votes: {voteCount}</h4></li>
             </ul>
         </li>
     ));
 
-    function addVote(movie) {
+    function addVote(movie, isMyVote=false) {
         const newVoteCounts = structuredClone(voteCounts);
 
         if (newVoteCounts[currentVote] > 0) {
@@ -38,6 +84,12 @@ export function Voting(props) {
         
         setCurrentVote(movie);
         setVoteCounts(newVoteCounts);
+
+        if (isMyVote && inParty) {
+            // Broadcast Vote Event
+            const request = new VoteRequest(RoomEvent.Vote, roomID, newVoteCounts);
+            RoomComm.broadcastEvent(request);
+        }
     }
 
     function updateVoteCounts() {
@@ -46,50 +98,40 @@ export function Voting(props) {
             newVoteCounts[newMovie] = 0;
             setVoteCounts(newVoteCounts);
 
+            // Broadcast AddMovie Event
+            if (inParty) {
+                const request = new AddMovieRequest(RoomEvent.AddMovie, roomID, newMovie);
+                RoomComm.broadcastEvent(request);
+            }
+
             setListError(null);
         } else {
             setListError("Movie Already In Voting List");
         }
     }
 
-    function generateRoomID() {
-        // TEST CODE
-        return 101;
-        // TEST CODE
-    }
-
-    function getRoomNameByID() {
-        // TEST CODE
-        return "Super Rad Voting Room";
-        // TEST CODE
-    }
-
     function handleCreateRoom(e) {
         if (e.keyCode === 13) {
             setCreatingRoom(false);
-            setRoomID(generateRoomID());
+
+            // Broadcast Create Event
+            const request = new CreateRequest(RoomEvent.Create, props.username, roomName);
+            RoomComm.broadcastEvent(request);
         }
-    }
-
-    function getPartyMembers() {
-        const partyMembers = [];
-        partyMembers.push(props.username);
-        partyMembers.push("CoolCat264");
-        partyMembers.push("SpongeBob555");
-
-        setMembers(partyMembers);
     }
 
     function handleJoinRoom(e) {
         if (e.keyCode === 13) {
             setJoiningRoom(false);
-            setRoomName(getRoomNameByID());
-            getPartyMembers();
+
+            // Broadcast Join Event
+            const request = new JoinRequest(RoomEvent.Join, roomID, props.username);
+            RoomComm.broadcastEvent(request);
         }
     }
 
     return (
-        <main id="votingMain">
+        <main id="votingMain" key={renderKey}>
             <div id="roomDetailsColumn" className="center">
                 <h2>{roomName}</h2>
                 {roomID > 0 && <h2>Room ID: {roomID}</h2>}
@@ -105,16 +147,17 @@ export function Voting(props) {
                 {creatingRoom && 
                     <>
                         <h4>Name your new room and press 'Enter':</h4>
-                        <input id="createRoomInput" value={roomName !== "My Voting Room" ? roomName : null} onChange={(e) => setRoomName(e.target.value)} onKeyDown={handleCreateRoom} placeholder="Voting Room Name..." />
+                        <input id="createRoomInput" value={roomName !== "My Voting Room" ? roomName : ""} onChange={(e) => setRoomName(e.target.value)} onKeyDown={handleCreateRoom} placeholder="Voting Room Name..." />
                     </>
                 }
                 <button id="joinRoomButton" type="submit" className="button" onClick={() => setJoiningRoom(true)} disabled={creatingRoom || props.authState === "unauthenticated"} >Join Room</button>
                 {joiningRoom &&
                     <>
                         <h4>Type the Room ID and press 'Enter':</h4>
-                        <input id="joinRoomInput" value={roomID > 0 ? roomID : null} onChange={(e) => setRoomID(e.target.value)} onKeyDown={handleJoinRoom} placeholder="Voting Room ID..." />
+                        <input id="joinRoomInput" value={roomID > 0 ? roomID : ""} onChange={(e) => setRoomID(e.target.value)} onKeyDown={handleJoinRoom} placeholder="Voting Room ID..." />
                     </>
                 }
+                {joinError && <h5>{joinError}</h5>}
             </div>
             <div id="votingColumn" className="center">
                 <h2>Movie Votes</h2>
